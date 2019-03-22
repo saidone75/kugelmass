@@ -1,3 +1,87 @@
-h1 {
-  text-decoration: underline;
+body {
+  font-family: monospace;
+  color: #303030;
+  background-color: #f0f0d0;
+}
+
+div.header {
+  text-align: center;
+  color: white;
+  background-color: #7b971b;
+  border-radius: 8px;
+}
+
+div.header div.title {
+  padding-top: 16px;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+div.header div.tagline {
+  font-size: 1em;
+  font-style: italic;
+  padding-top: 8px;
+  padding-bottom: 16px;
+}
+
+div.footer {
+  text-align: center;
+  color: white;
+  background-color: #7b971b;
+  border-radius: 8px;
+}
+
+div.footer div.quote {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-size: 1em;
+  font-style: italic;
+}
+
+div.body {
+  overflow: hidden;
+}
+
+div.content {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+div.toolbar {
+  text-align: center;
+  margin-top: 8px;
+  background-color: #7b971b;
+  border-radius: 8px;
+  padding-left: 4px;
+}
+
+div.toolbar a {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+div.toolbar a:link {
+  color: white;
+  text-decoration: none;
+}
+
+div.toolbar a:visited {
+  color: white;
+}
+
+div.toolbar a:hover {
+  background-color: #5f7414;
+}
+
+div.board {
+  text-align: center;
+}
+
+rect.block {
+  width: 16px;
+  height: 16px;
+  rx: 2px;
+  stroke: lightgray;
+  stroke-width: 1px;
 }
