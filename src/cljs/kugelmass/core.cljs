@@ -3,6 +3,7 @@
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
             [kugelmass.life-renderer :as life-renderer]
+            [kugelmass.pages :as pages]
             [secretary.core :as secretary]
             [goog.events :as events]
             [goog.history.EventType :as EventType])
@@ -17,9 +18,6 @@
 
 (defonce intervals (atom nil))
 
-(defn home []
-  (swap! app-state assoc :content [:p "Home"]))
-
 (defn life []
   (swap! app-state assoc :content (life-renderer/render)))
 
@@ -30,15 +28,11 @@
     (swap! intervals assoc :life (js/setInterval update-life! 1000))))
 
 (defn resume []
-  (swap! app-state assoc :content [:p "Resume"]))
+  (swap! app-state assoc :content (pages/resume)))
 
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (swap! app-state assoc :page home)
-  (home))
-
-(secretary/defroute "/life" []
   (swap! app-state assoc :page life)
   (life))
 
@@ -61,7 +55,6 @@
 (defn toolbar []
   [:div.toolbar
    [:a {:href "#/"} "Home"]
-   [:a {:href "#/life"} "Life"]
    [:a {:href "#/resume"} "Resume"]])
 
 (defn site []

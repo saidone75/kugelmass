@@ -48,6 +48,14 @@ div.content {
   padding-bottom: 10px;
 }
 
+div.content h1 {
+    font-size: 1.4em;
+}
+
+div.content p {
+    font-size: 1em;
+}
+
 div.toolbar {
   text-align: center;
   margin-top: 8px;
