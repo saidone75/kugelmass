@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # kugelmass
 
 
@@ -142,3 +143,6 @@ your option) any later version.
 ## Chestnut
 
 Created with [Chestnut](http://plexus.github.io/chestnut/) 0.17.0 (83a08ccb).
+=======
+# kugelmass
+>>>>>>> 5feef61fa047ba6f05765575717488600e41c20f
