@@ -19,13 +19,7 @@
 (defonce intervals (atom nil))
 
 (defn life []
-  (swap! app-state assoc :content (life-renderer/render)))
-
-(defn update-life! []
-  (if (= life (:page @app-state))
-    (swap! app-state assoc :content (life-renderer/update)))
-  (if (nil? (:life @intervals))
-    (swap! intervals assoc :life (js/setInterval update-life! 1000))))
+  (swap! app-state assoc :content (life-renderer/render-board)))
 
 (defn resume []
   (swap! app-state assoc :content (pages/resume)))
@@ -33,11 +27,11 @@
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (swap! app-state assoc :page life)
+  (swap! app-state assoc :page :life)
   (life))
 
 (secretary/defroute "/resume" []
-  (swap! app-state assoc :page resume)
+  (swap! app-state assoc :page :resume)
   (resume))
 
 (defn header []
@@ -74,6 +68,12 @@
   (swap! app-state assoc :tagline (taglines/get-tagline))
   (if (nil? (:tagline @intervals))
     (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 10000 (rand-int 5000))))))
+
+(defn update-life! []
+  (if (= :life (:page @app-state))
+    (swap! app-state assoc :content (life-renderer/update-board)))
+  (if (nil? (:life @intervals))
+    (swap! intervals assoc :life (js/setInterval update-life! 1000))))
 
 (defn render []
   (reagent/render [site] (js/document.getElementById "app")))

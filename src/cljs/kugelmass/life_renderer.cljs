@@ -22,7 +22,7 @@
           (recur (rest board)
                  (conj blocks ^{:key (gen-key)} [block x y
                                                  (if (first board)
-                                                   "#7b971b"
+                                                   "#566a12"
                                                    "#f0f0d0")])
                  (if (= 0 (mod (inc i) life/width))
                    0
@@ -32,11 +32,11 @@
                    y)
                  (inc i))))]])
 
-(defn render []
-  (def x (quot window-width blocksize))
+(defn render-board []
+  (def x (quot (* .80 window-width) blocksize))
   (life/init-game x (quot x 3))
   (draw-board (* blocksize x) (* blocksize (quot x 3)) blocksize))
 
-(defn update []
+(defn update-board []
   (life/compute-next-gen)
   (draw-board (* blocksize x) (* blocksize (quot x 3)) blocksize))
