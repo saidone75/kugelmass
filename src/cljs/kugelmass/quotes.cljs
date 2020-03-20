@@ -26,8 +26,6 @@
               "Beware of programmers who carry screwdrivers."
               "Bernie Cosell"
               "Too many people, too few sheep."
-              nil
-              "I can hardly believe anything about last night."
               "Bob Gray"
               "Writing in C or C++ is like running a chain saw with all the safety guards removed."
               "Timothy Leary"
@@ -38,6 +36,10 @@
               "I find television very educating. Every time somebody turns on the set, I go into the other room and read a book"
               "Pablo Picasso"
               "Computers are useless. They can only give you answers."
+              "Ken Thompson"
+              "One of my most productive days was throwing away 1,000 lines of code."
+              "Brian Kernigan"
+              "Controlling complexity is the essence of computer programming."
               "Peter Clemenza"
               "Leave the gun, take the cannoli."))
 
