@@ -15,7 +15,7 @@
               "Frank Zappa"
               "Tobacco is my favorite vegetable."
               "Steve Jobs"
-              "It's better to be a pirate than to join the Navy."
+              "It's more fun to be a pirate than to join the Navy."
               "Robert Sewell"
               "If Java had true garbage collection, most programs would delete themselves upon execution."
               "Linus Torvalds"
@@ -38,7 +38,7 @@
               "Computers are useless. They can only give you answers."
               "Ken Thompson"
               "One of my most productive days was throwing away 1,000 lines of code."
-              "Brian Kernigan"
+              "Brian Kernighan"
               "Controlling complexity is the essence of computer programming."
               "Peter Clemenza"
               "Leave the gun, take the cannoli."))
