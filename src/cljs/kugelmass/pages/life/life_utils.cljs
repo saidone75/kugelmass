@@ -1,7 +1,7 @@
 (ns kugelmass.pages.life-utils)
 
 ;; random boolean 75% false
-(defn random-bool []
+(defn- random-bool []
   (if (> (rand-int 4) 2)
     true
     false))
@@ -16,19 +16,19 @@
   (reset! board (vec (doall (take (* width height) (repeatedly random-bool))))))
 
 ;; calculate vector index from coords
-(defn compute-index [x y]
+(defn- compute-index [x y]
   (+ x (* y width)))
 
 ;; calculate grid coords from vector index
-(defn compute-coords [n]
+(defn- compute-coords [n]
   {:x (mod n width) :y (quot n width)})
 
 ;; check if a cell is alive
-(defn is-alive [n]
+(defn- is-alive [n]
   (true? (nth @board n)))
 
 ;; get neighbours of a cell
-(defn neighbours [n]
+(defn- neighbours [n]
   (let [coords (compute-coords n)
         ;; inc x and y with wrapping logic
         incx #(cond
@@ -53,7 +53,7 @@
      (compute-index (incx (:x coords)) (incy (:y coords)))]))
 
 ;; get alive neighbours count
-(defn count-alive-neighbours [n]
+(defn- count-alive-neighbours [n]
   (let [neighbours (neighbours n)]
     (reduce
      #(if (is-alive %2)
