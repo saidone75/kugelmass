@@ -19,29 +19,23 @@
 
 (defonce intervals (atom {}))
 
-(defn life []
+(defn load-page [page]
   (js/clearInterval (:page @intervals))
-  (let [life (pages/get-life)]
-    (swap! app-state assoc :content (:content life))
-    (let [set-interval (:set-interval life)]
+  (let [page (pages/get-page page)]
+    (swap! app-state assoc :content (:content page))
+    (let [set-interval (:set-interval page)]
       (swap! intervals assoc :page
              (js/setInterval
               #(swap! app-state assoc :content ((:function set-interval)))
               (:interval set-interval))))))
 
-(defn resume []
-  (js/clearInterval (:page @intervals))
-  (swap! app-state assoc :content (pages/resume)))
-
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (swap! app-state assoc :page :life)
-  (life))
+  (load-page :life))
 
 (secretary/defroute "/resume" []
-  (swap! app-state assoc :page :resume)
-  (resume))
+  (load-page :resume))
 
 (defn header []
   [:div.header
