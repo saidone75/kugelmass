@@ -3,8 +3,6 @@
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
             [kugelmass.pages :as pages]
-
-            [kugelmass.pages.life :as l]
             [secretary.core :as secretary]
             [goog.events :as events]
             [goog.history.EventType :as EventType])
