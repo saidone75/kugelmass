@@ -2,8 +2,9 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
-            [kugelmass.life-renderer :as life-renderer]
             [kugelmass.pages :as pages]
+
+            [kugelmass.pages.life :as l]
             [secretary.core :as secretary]
             [goog.events :as events]
             [goog.history.EventType :as EventType])
@@ -16,12 +17,20 @@
                          {:quote (quotes/get-quote)}
                          {:tagline (taglines/get-tagline)}))
 
-(defonce intervals (atom nil))
+(defonce intervals (atom {}))
 
 (defn life []
-  (swap! app-state assoc :content (life-renderer/render-board)))
+  (js/clearInterval (:page @intervals))
+  (let [life (pages/get-life)]
+    (swap! app-state assoc :content (:content life))
+    (let [set-interval (:set-interval life)]
+      (swap! intervals assoc :page
+             (js/setInterval
+              #(swap! app-state assoc :content ((:function set-interval)))
+              (:interval set-interval))))))
 
 (defn resume []
+  (js/clearInterval (:page @intervals))
   (swap! app-state assoc :content (pages/resume)))
 
 (secretary/set-config! :prefix "#")
@@ -62,18 +71,12 @@
 (defn update-quote! []
   (swap! app-state assoc :quote (quotes/get-quote))
   (if (nil? (:tagline @intervals))
-    (swap! intervals assoc :quote (js/setInterval update-quote! (+ 16000 (rand-int 8000))))))
+    (defonce qupte-interval (js/setInterval update-quote! (+ 16000 (rand-int 8000))))))
 
 (defn update-tagline! []
   (swap! app-state assoc :tagline (taglines/get-tagline))
   (if (nil? (:tagline @intervals))
     (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 10000 (rand-int 5000))))))
-
-(defn update-life! []
-  (if (= :life (:page @app-state))
-    (swap! app-state assoc :content (life-renderer/update-board)))
-  (if (nil? (:life @intervals))
-    (swap! intervals assoc :life (js/setInterval update-life! 1000))))
 
 (defn render []
   (reagent/render [site] (js/document.getElementById "app")))
@@ -84,4 +87,3 @@
 
 (update-quote!)
 (update-tagline!)
-(update-life!)

@@ -1,4 +1,11 @@
-(ns kugelmass.pages)
+(ns kugelmass.pages
+  (:require [kugelmass.pages.life :as life]))
+
+(defn get-life []
+  {:content
+   (life/render-board)
+   :set-interval {:function life/update-board
+                  :interval 1000}})
 
 (defn resume []
   [:div.resume
