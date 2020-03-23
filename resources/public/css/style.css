@@ -52,30 +52,30 @@ div.content {
     text-align: center;
 }
 
-div.resume {
+div.page {
     width: 70%;
     display: inline-block;
     text-align: left;
 }
 
-div.resume h1 {
+div.page h1 {
     font-size: 1.4em;
 }
 
-div.resume p {
+div.page p {
     font-size: 1em;
 }
 
-div.resume em {
-    font-size: 0.8em;
+div.page em {
+    font-size: 1em;
 }
 
-div.resume a:link {
+div.page a:link {
     color: #566a12;
     text-decoration: underline;
 }
 
-div.resume a:visited {
+div.page a:visited {
     color: #566a12;
 }
 

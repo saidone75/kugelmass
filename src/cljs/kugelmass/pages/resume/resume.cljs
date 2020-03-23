@@ -1,7 +1,7 @@
 (ns kugelmass.pages.resume.resume)
 
 (def resume
-  [:div.resume
+  [:div.page
    [:p
     [:h1 "Contact"]
     [:a {:href "mailto:saidone@saidone.org"} "saidone@saidone.org"]
