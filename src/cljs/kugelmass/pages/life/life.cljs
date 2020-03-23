@@ -1,5 +1,5 @@
-(ns kugelmass.pages.life
-  (:require [kugelmass.pages.life-utils :as life-utils]))
+(ns kugelmass.pages.life.life
+  (:require [kugelmass.pages.life.life-utils :as life-utils]))
 
 (def window-width  (.-innerWidth js/window))
 (def blocksize 20)

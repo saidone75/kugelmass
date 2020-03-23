@@ -1,4 +1,4 @@
-(ns kugelmass.pages.life-utils)
+(ns kugelmass.pages.life.life-utils)
 
 ;; random boolean 75% false
 (defn- random-bool []

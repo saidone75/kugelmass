@@ -37,7 +37,7 @@
 
 (defn header []
   [:div.header
-   [:div.title "saidone.org"]
+   [:div.title "SAIDONE CONSULTING"]
    [:div.tagline (:tagline @app-state)]])
 
 (defn content [page]

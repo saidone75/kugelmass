@@ -1,4 +1,4 @@
-(ns kugelmass.pages.resume)
+(ns kugelmass.pages.resume.resume)
 
 (def resume
   [:div.resume

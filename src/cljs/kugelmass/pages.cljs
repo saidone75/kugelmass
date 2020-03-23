@@ -1,6 +1,6 @@
 (ns kugelmass.pages
-  (:require [kugelmass.pages.life :as life]
-            [kugelmass.pages.resume :as resume]))
+  (:require [kugelmass.pages.life.life :as life]
+            [kugelmass.pages.resume.resume :as resume]))
 
 (defn- get-life []
   {:content
