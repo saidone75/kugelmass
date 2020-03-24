@@ -22,10 +22,11 @@
   (let [page (pages/get-page page)]
     (swap! app-state assoc :content (:content page))
     (let [set-interval (:set-interval page)]
-      (swap! intervals assoc :page
-             (js/setInterval
-              #(swap! app-state assoc :content ((:function set-interval)))
-              (:interval set-interval))))))
+      (if (not (nil? set-interval))
+        (swap! intervals assoc :page
+               (js/setInterval
+                #(swap! app-state assoc :content ((:function set-interval)))
+                (:interval set-interval)))))))
 
 (secretary/set-config! :prefix "#")
 
