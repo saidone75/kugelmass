@@ -1,6 +1,6 @@
 (ns kugelmass.quotes)
 
-(defn make-quotes [quotes]
+(defn- make-quotes [quotes]
   (reduce
    #(conj %1 {:author (first %2) :quote (last %2)})
    []

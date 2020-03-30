@@ -34,7 +34,7 @@
     [:ul
      [:li "ECM/CMS - " [:em "Alfresco, Nuxeo"]]
      [:li "Application servers"]
-     [:li "Distributed systems and storage"]]]
+     [:li "Distributed storage"]]]
    [:p
     [:h1 "Professional Experience"]
     [:ul

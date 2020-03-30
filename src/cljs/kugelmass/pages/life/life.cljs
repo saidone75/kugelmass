@@ -2,7 +2,12 @@
   (:require [kugelmass.pages.life.life-utils :as life-utils]))
 
 (def window-width  (.-innerWidth js/window))
+(def window-height  (.-innerHeight js/window))
+
 (def blocksize 20)
+
+(def w (quot (* .80 window-width) blocksize))
+(def h (quot (* .75 window-height) blocksize))
 
 (def uniqkey (atom 0))
 (defn- gen-key []
@@ -33,10 +38,9 @@
                  (inc i))))]])
 
 (defn render-board []
-  (def x (quot (* .80 window-width) blocksize))
-  (life-utils/init-game x (quot x 3))
-  (draw-board (* blocksize x) (* blocksize (quot x 3)) blocksize))
+  (life-utils/init-game w h)
+  (draw-board (* blocksize w) (* blocksize h) blocksize))
 
 (defn update-board []
   (life-utils/compute-next-gen)
-  (draw-board (* blocksize x) (* blocksize (quot x 3)) blocksize))
+  (draw-board (* blocksize w) (* blocksize h) blocksize))
