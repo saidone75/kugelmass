@@ -8,34 +8,32 @@ body {
 
 div.header {
     text-align: center;
-    color: white;
+    color: #f0f0d0;
     background-color: #566a12;
     border-radius: 8px;
+    padding: 16px;
 }
 
 div.header div.title {
-    padding-top: 16px;
     font-weight: bold;
     font-size: 1.4em;
+    padding-bottom: 8px;
 }
 
 div.header div.tagline {
     font-size: 1em;
     font-style: italic;
-    padding-top: 8px;
-    padding-bottom: 16px;
 }
 
 div.footer {
     text-align: center;
-    color: white;
+    color: #f0f0d0;
     background-color: #566a12;
     border-radius: 8px;
+    padding: 10px;
 }
 
 div.footer div.quote {
-    padding-top: 6px;
-    padding-bottom: 6px;
     font-size: 1em;
     font-style: italic;
 }
@@ -93,12 +91,12 @@ div.toolbar a {
 }
 
 div.toolbar a:link {
-    color: white;
+    color: #f0f0d0;
     text-decoration: none;
 }
 
 div.toolbar a:visited {
-    color: white;
+    color: #f0f0d0;
 }
 
 div.toolbar a:hover {
