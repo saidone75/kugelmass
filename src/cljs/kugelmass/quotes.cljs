@@ -1,11 +1,5 @@
 (ns kugelmass.quotes)
 
-(defn- make-quotes [quotes]
-  (reduce
-   #(conj %1 {:author (first %2) :quote (last %2)})
-   []
-   (partition 2 quotes)))
-
 (def quotes '("Frank Zappa"
               "Politics is the entertainment branch of industry."
               "Frank Zappa"
@@ -51,9 +45,15 @@
               "Peter Clemenza"
               "Leave the gun, take the cannoli."))
 
+(defn- make-quotes [quotes]
+  (reduce
+   #(conj %1 {:author (first %2) :quote (last %2)})
+   []
+   (partition 2 quotes)))
+
 (defn get-quote []
-  (def quote (rand-nth (make-quotes quotes)))
-  (str \" (:quote quote) \"
-       (if (nil? (:author quote))
-         nil
-         (str " - " (:author quote)))))
+  (let [quote (rand-nth (make-quotes quotes))]
+    (str \" (:quote quote) \"
+         (if (nil? (:author quote))
+           nil
+           (str " - " (:author quote))))))
