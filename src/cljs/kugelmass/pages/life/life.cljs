@@ -7,7 +7,7 @@
 (def blocksize 20)
 
 (def w (quot (* .80 window-width) blocksize))
-(def h (quot (* .75 window-height) blocksize))
+(def h (quot (* .70 window-height) blocksize))
 
 (def uniqkey (atom 0))
 (defn- gen-key []
