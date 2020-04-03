@@ -42,6 +42,12 @@
               "Typing is no substitute for thinking."
               "L Peter Deutsch"
               "To iterate is human, to recurse divine."
+              "Robert C. Martin"
+              "Truth can only be found in one place: the code."
+              "Alan J. Perlis"
+              "A language that doesn't affect the way you think about programming, is not worth knowing."
+              "Donald Knuth"
+              "Beware of bugs in the above code; I have only proved it correct, not tried it."
               "Peter Clemenza"
               "Leave the gun, take the cannoli."))
 
