@@ -60,14 +60,6 @@ div.page h1 {
     font-size: 1.4em;
 }
 
-div.page p {
-    font-size: 1em;
-}
-
-div.page em {
-    font-size: 1em;
-}
-
 div.page a:link {
     color: #566a12;
     text-decoration: underline;
