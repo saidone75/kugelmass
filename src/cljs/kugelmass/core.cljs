@@ -10,14 +10,11 @@
 
 (enable-console-print!)
 
-(defonce app-state (atom {:content nil}
-                         {:page nil}
-                         {:quote (quotes/get-quote)}
-                         {:tagline (taglines/get-tagline)}))
+(defonce app-state (atom {}))
 
 (defonce intervals (atom {}))
 
-(defn load-page [page]
+(defn- load-page [page]
   (js/clearInterval (:page @intervals))
   (let [page (pages/get-page page)]
     (swap! app-state assoc :content (:content page))
@@ -36,24 +33,24 @@
 (secretary/defroute "/resume" []
   (load-page :resume))
 
-(defn header []
+(defn- header []
   [:div.header
    [:div.title "SAIDONE.ORG"]
    [:div.tagline (:tagline @app-state)]])
 
-(defn content [page]
+(defn- content [page]
   [:div.content {:id "content"} (:content @app-state)])
 
-(defn footer []
+(defn- footer []
   [:div.footer
    [:div.quote (:quote @app-state)]])
 
-(defn toolbar []
+(defn- toolbar []
   [:div.toolbar
    [:a {:href "#/"} "Home"]
    [:a {:href "#/resume"} "Resume"]])
 
-(defn site []
+(defn- site []
   [:div
    [header]
    [toolbar]
@@ -61,17 +58,17 @@
     [content]]
    [footer]])
 
-(defn update-quote! []
+(defn- update-quote! []
   (swap! app-state assoc :quote (quotes/get-quote))
-  (if (nil? (:tagline @intervals))
-    (defonce qupte-interval (js/setInterval update-quote! (+ 16000 (rand-int 8000))))))
+  (if (nil? (:quote @intervals))
+    (swap! intervals assoc :quote (js/setInterval update-quote! (+ 12000 (rand-int 8000))))))
 
-(defn update-tagline! []
+(defn- update-tagline! []
   (swap! app-state assoc :tagline (taglines/get-tagline))
   (if (nil? (:tagline @intervals))
-    (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 10000 (rand-int 5000))))))
+    (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 8000 (rand-int 4000))))))
 
-(defn render []
+(defn- render []
   (reagent/render [site] (js/document.getElementById "app")))
 
 (let [h (History.)]
