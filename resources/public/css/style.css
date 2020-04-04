@@ -71,20 +71,21 @@ div.page a:visited {
 
 div.toolbar {
     text-align: center;
-    margin-top: 8px;
+    margin-top: 6px;
     background-color: #566a12;
     border-radius: 8px;
     padding-left: 4px;
+    padding-bottom: 2px;
 }
 
 div.toolbar a {
     padding-left: 4px;
     padding-right: 4px;
+    text-decoration: underline;
 }
 
 div.toolbar a:link {
     color: #f0f0d0;
-    text-decoration: none;
 }
 
 div.toolbar a:visited {
