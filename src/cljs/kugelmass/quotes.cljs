@@ -54,6 +54,8 @@
               "Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it."
               "Donald Knuth"
               "Beware of bugs in the above code; I have only proved it correct, not tried it."
+              "Edsger W. Dijkstra"
+              "Simplicity is prerequisite for reliability."
               "Voltaire"
               "Quand il s’agit d’argent, tout le monde est de la même religion."
               "Voltaire"
