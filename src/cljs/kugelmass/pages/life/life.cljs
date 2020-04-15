@@ -6,10 +6,10 @@
 
 (defonce blocksize 20)
 
-(defonce board (atom {}))
+(def board {})
 
-(swap! board assoc :w (quot (* .80 window-width) blocksize))
-(swap! board assoc :h (quot (* .70 window-height) blocksize))
+(set! board (assoc board :w (quot (* .80 window-width) blocksize)))
+(set! board (assoc board :h (quot (* .70 window-height) blocksize)))
 
 (def uniqkey (atom 0))
 (defn- gen-key []
@@ -22,10 +22,10 @@
                 :fill color}])
 
 (defn- draw-board [width height]
-  (let [w (:w @board)]
+  (let [w (:w board)]
     [:div.board
      [:svg.board {:width width :height height}
-      (loop [board (:board @board) blocks nil x 0 y 0 i 0]
+      (loop [board (:board board) blocks nil x 0 y 0 i 0]
         (if (empty? board) blocks
             (recur (rest board)
                    (conj blocks ^{:key (gen-key)} [block x y
@@ -41,11 +41,11 @@
                    (inc i))))]]))
 
 (defn create-board []
-  (let [{w :w h :h} @board]
-    (swap! board assoc :board (life-utils/init-game w h))
+  (let [{w :w h :h} board]
+    (set! board (assoc board :board (life-utils/init-game w h)))
     (draw-board (* blocksize w) (* blocksize h))))
 
 (defn update-board []
-  (let [{w :w h :h} @board]
-    (swap! board assoc :board (life-utils/compute-next-gen @board))
+  (let [{w :w h :h} board]
+    (set! board (assoc board :board (life-utils/compute-next-gen board)))
     (draw-board (* blocksize w) (* blocksize h))))
