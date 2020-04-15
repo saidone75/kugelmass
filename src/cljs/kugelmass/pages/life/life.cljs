@@ -40,9 +40,9 @@
                      y)
                    (inc i))))]]))
 
-(defn render-board []
+(defn create-board []
   (let [{w :w h :h} @board]
-    (swap! board assoc :board (life-utils/init-game @board))
+    (swap! board assoc :board (life-utils/init-game w h))
     (draw-board (* blocksize w) (* blocksize h))))
 
 (defn update-board []

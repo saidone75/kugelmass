@@ -7,27 +7,24 @@
     false))
 
 ;; init board
-(defn init-game [board]
-  (let [{w :w h :h} board]
-    (vec (doall (take (* w h) (repeatedly random-bool))))))
+(defn init-game [w h]
+  (vec (doall (take (* w h) (repeatedly random-bool)))))
 
 ;; calculate vector index from coords
-(defn- compute-index [x y board]
-  (+ x (* y (:w board))))
+(defn- compute-index [x y w]
+  (+ x (* y w)))
 
 ;; calculate grid coords from vector index
-(defn- compute-coords [n board]
-  {:x (mod n (:w board)) :y (quot n (:w board))})
+(defn- compute-coords [n w]
+  {:x (mod n w) :y (quot n w)})
 
 ;; check if a cell is alive
 (defn- is-alive [n board]
   (true? (nth (:board board) n)))
 
 ;; get neighbours of a cell
-(defn- neighbours [n board]
-  (let [coords (compute-coords n board)
-        w (:w board)
-        h (:h board)
+(defn- neighbours [n w h]
+  (let [coords (compute-coords n w)
         ;; inc x and y with wrapping logic
         incx #(cond
                 (= %1 (dec w)) 0
@@ -41,18 +38,18 @@
         decy #(cond
                 (= %1 0) (dec h)
                 :else (dec %1))]
-    [(compute-index (decx (:x coords)) (decy (:y coords)) board)
-     (compute-index (:x coords) (decy (:y coords)) board)
-     (compute-index (incx (:x coords)) (decy (:y coords)) board)
-     (compute-index (decx (:x coords)) (:y coords) board)
-     (compute-index (incx (:x coords)) (:y coords) board)
-     (compute-index (decx (:x coords)) (incy (:y coords)) board)
-     (compute-index (:x coords) (incy (:y coords)) board)
-     (compute-index (incx (:x coords)) (incy (:y coords)) board)]))
+    [(compute-index (decx (:x coords)) (decy (:y coords)) w)
+     (compute-index (:x coords) (decy (:y coords)) w)
+     (compute-index (incx (:x coords)) (decy (:y coords)) w)
+     (compute-index (decx (:x coords)) (:y coords) w)
+     (compute-index (incx (:x coords)) (:y coords) w)
+     (compute-index (decx (:x coords)) (incy (:y coords)) w)
+     (compute-index (:x coords) (incy (:y coords)) w)
+     (compute-index (incx (:x coords)) (incy (:y coords)) w)]))
 
 ;; get alive neighbours count
 (defn- count-alive-neighbours [n board]
-  (let [neighbours (neighbours n board)]
+  (let [neighbours (neighbours n (:w board) (:h board))]
     (reduce
      #(if (is-alive %2 board)
         (inc %1)

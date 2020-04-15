@@ -4,7 +4,7 @@
 
 (defn- get-life []
   {:content
-   (life/render-board)
+   (life/create-board)
    :set-interval {:function life/update-board
                   :interval 1000}})
 
