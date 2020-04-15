@@ -11,11 +11,6 @@
 (set! board (assoc board :w (quot (* .80 window-width) blocksize)))
 (set! board (assoc board :h (quot (* .70 window-height) blocksize)))
 
-(def uniqkey (atom 0))
-(defn- gen-key []
-  (swap! uniqkey inc)
-  @uniqkey)
-
 (defn- block [x y color]
   [:rect.block {:x x
                 :y y
@@ -28,10 +23,10 @@
       (loop [board (:board board) blocks nil x 0 y 0 i 0]
         (if (empty? board) blocks
             (recur (rest board)
-                   (conj blocks ^{:key (gen-key)} [block x y
-                                                   (if (first board)
-                                                     "#566a12"
-                                                     "#f0f0d0")])
+                   (conj blocks [block x y
+                                 (if (first board)
+                                   "#566a12"
+                                   "#f0f0d0")])
                    (if (= 0 (mod (inc i) w))
                      0
                      (+ blocksize x))
