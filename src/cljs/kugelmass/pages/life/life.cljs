@@ -15,7 +15,7 @@
 
 (defn- toggle [id]
   (if (:start board)
-    (js/alert "Pause game by pressing spacebar before edit board!")
+    (js/alert "Pause the game by pressing spacebar to edit board!")
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
                                                                "#f0f0d0"
