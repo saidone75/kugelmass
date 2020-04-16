@@ -11,10 +11,18 @@
 (set! board (assoc board :w (quot (* .80 window-width) blocksize)))
 (set! board (assoc board :h (quot (* .70 window-height) blocksize)))
 
-(defn- block [x y color]
-  [:rect.block {:x x
+(defn- toggle [id]
+  (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
+                                                           "#f0f0d0"
+                                                           "#566a12"))
+  (set! board (assoc board :board (update (:board board) id not))))
+
+(defn- block [id x y color]
+  [:rect.block {:id id
+                :x x
                 :y y
-                :fill color}])
+                :fill color
+                :on-click #(toggle id)}])
 
 (defn- draw-board [width height]
   (let [w (:w board)]
@@ -23,10 +31,10 @@
       (loop [board (:board board) blocks nil x 0 y 0 i 0]
         (if (empty? board) blocks
             (recur (rest board)
-                   (conj blocks [block x y
-                                 (if (first board)
-                                   "#566a12"
-                                   "#f0f0d0")])
+                   (conj blocks ^{:key i} [block i x y
+                                           (if (first board)
+                                             "#566a12"
+                                             "#f0f0d0")])
                    (if (= 0 (mod (inc i) w))
                      0
                      (+ blocksize x))
