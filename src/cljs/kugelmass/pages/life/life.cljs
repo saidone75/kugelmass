@@ -6,7 +6,7 @@
 
 (defonce blocksize 20)
 
-(def board {})
+(defonce board {})
 
 (set! board (assoc board :w (quot (* .80 window-width) blocksize)))
 (set! board (assoc board :h (quot (* .70 window-height) blocksize)))
@@ -58,8 +58,7 @@
   (let [{w :w h :h} board]
     (set! board (assoc board :board (life-utils/init-game w h)))
     (draw-board (* blocksize w) (* blocksize h)))
-  (js/document.addEventListener  "keydown" handler)
-  )
+  (js/document.addEventListener "keydown" handler))
 
 (defn update-board []
   (let [{w :w h :h} board]
