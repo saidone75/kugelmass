@@ -15,7 +15,7 @@
 
 (defn- toggle [id]
   (if (:start board)
-    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe up to clear board\n- r or swipe down to randomize board")
+    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear board\n- r or swipe right to randomize board")
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
                                                                "#f0f0d0"
@@ -65,17 +65,17 @@
       (= 82 event.keyCode) (randomize-board)
       (= 67 event.keyCode) (clear-board))))  
 
-(def touchstart-pageY nil)
+(def touchstart-pageX nil)
 
 (defn- touchstart-handler [event]
   (if (.getElementById js/document "board")
     (cond
       (= 2 event.touches.length) (set! board (assoc board :start (not (:start board))))
-      :else (set! touchstart-pageY (aget (aget event.changedTouches 0) "pageY")))))
+      :else (set! touchstart-pageX (aget (aget event.changedTouches 0) "pageX")))))
 
 (defn- touchend-handler [event]
-  (let [touchend-pageY (aget (aget event.changedTouches 0) "pageY")
-        distance (- touchstart-pageY touchend-pageY)]
+  (let [touchend-pageX (aget (aget event.changedTouches 0) "pageX")
+        distance (- touchstart-pageX touchend-pageX)]
     (cond
       (and (pos? distance) (< 150 (Math.abs distance))) (clear-board)
       (and (not (pos? distance)) (< 150 (Math.abs distance)))(randomize-board))))
