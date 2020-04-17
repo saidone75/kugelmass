@@ -48,10 +48,23 @@
                      y)
                    (inc i))))]]))
 
+(defn- randomize-board []
+  (let [{w :w h :h} board]
+    (set! board (assoc board :board (life-utils/init-game w h)))
+    (draw-board (* blocksize w) (* blocksize h))))
+
+(defn- clear-board []
+  (let [{w :w h :h} board]
+    (set! board (assoc board :board (take (* w h) (repeat false))))
+    (draw-board (* blocksize w) (* blocksize h))))
+
 (defn- keydown-handler [event]
-  (if (and (= 32 event.keyCode)
-           (.getElementById js/document "board"))
-    (set! board (assoc board :start (not (:start board))))))
+  (js/console.log event.keyCode)
+  (if (.getElementById js/document "board")
+    (cond
+      (= 32 event.keyCode) (set! board (assoc board :start (not (:start board))))
+      (= 82 event.keyCode) (randomize-board)
+      (= 67 event.keyCode) (clear-board))))  
 
 (defn- touchstart-handler [event]
   (if (and (= 2 event.touches.length)
@@ -59,9 +72,7 @@
     (set! board (assoc board :start (not (:start board))))))
 
 (defn create-board []
-  (let [{w :w h :h} board]
-    (set! board (assoc board :board (life-utils/init-game w h)))
-    (draw-board (* blocksize w) (* blocksize h)))
+  (randomize-board)
   (js/document.addEventListener "keydown" keydown-handler)
   (js/document.addEventListener "touchstart" touchstart-handler))
 
