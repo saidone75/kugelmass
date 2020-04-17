@@ -15,7 +15,7 @@
 
 (defn- toggle [id]
   (if (:start board)
-    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear (and pause) board\n- r or swipe right to randomize board")
+    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear board and pause\n- r or swipe right to randomize board")
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
                                                                "#f0f0d0"
