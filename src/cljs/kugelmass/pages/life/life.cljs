@@ -15,12 +15,12 @@
 
 (defn- toggle [id]
   (if (:start board)
-    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear board\n- r or swipe right to randomize board")
+    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear (and pause) board\n- r or swipe right to randomize board")
     (do
-      (set! board (assoc board :board (update (:board board) id not)))
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
                                                                "#f0f0d0"
-                                                               "#566a12")))))
+                                                               "#566a12"))
+      (set! board (assoc board :board (update (:board board) id not))))))
 
 (defn- block [id x y color]
   [:rect.block {:id id
@@ -55,6 +55,7 @@
 
 (defn- clear-board []
   (let [{w :w h :h} board]
+    (set! board (assoc board :start false))
     (set! board (assoc board :board (vec (take (* w h) (repeat false)))))
     (draw-board (* blocksize w) (* blocksize h))))
 
