@@ -15,7 +15,7 @@
 
 (defn- toggle [id]
   (if (:start board)
-    (js/alert "Pause the game to edit board, either by\n- pressing spacebar\n- tapping with two fingers")
+    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe up to clear board\n- r or swipe down to randomize board")
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
                                                                "#f0f0d0"
@@ -59,25 +59,34 @@
     (draw-board (* blocksize w) (* blocksize h))))
 
 (defn- keydown-handler [event]
-  (js/console.log event.keyCode)
   (if (.getElementById js/document "board")
     (cond
       (= 32 event.keyCode) (set! board (assoc board :start (not (:start board))))
       (= 82 event.keyCode) (randomize-board)
       (= 67 event.keyCode) (clear-board))))  
 
+(def touchstart-pageY nil)
+
 (defn- touchstart-handler [event]
-  (if (and (= 2 event.touches.length)
-           (.getElementById js/document "board"))
-    (set! board (assoc board :start (not (:start board))))))
+  (if (.getElementById js/document "board")
+    (cond
+      (= 2 event.touches.length) (set! board (assoc board :start (not (:start board))))
+      :else (set! touchstart-pageY (aget (aget event.changedTouches 0) "pageY")))))
+
+(defn- touchend-handler [event]
+  (let [touchend-pageY (aget (aget event.changedTouches 0) "pageY")
+        distance (- touchstart-pageY touchend-pageY)]
+    (cond
+      (and (pos? distance) (< 150 (Math.abs distance))) (clear-board)
+      (and (not (pos? distance)) (< 150 (Math.abs distance)))(randomize-board))))
 
 (defn create-board []
   (randomize-board)
   (js/document.addEventListener "keydown" keydown-handler)
-  (js/document.addEventListener "touchstart" touchstart-handler))
+  (js/document.addEventListener "touchstart" touchstart-handler)
+  (js/document.addEventListener "touchend" touchend-handler))
 
 (defn update-board []
-  (let [{w :w h :h} board]
-    (if (:start board)
-      (set! board (assoc board :board (life-utils/compute-next-gen board))))
-    (draw-board (* blocksize w) (* blocksize h))))
+  (if (:start board)
+    (set! board (assoc board :board (life-utils/compute-next-gen board))))
+  (draw-board (* blocksize (:w board)) (* blocksize (:h board))))
