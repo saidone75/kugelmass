@@ -15,7 +15,7 @@
 
 (defn- toggle [id]
   (if (:start board)
-    (js/alert "Pause the game by pressing spacebar to edit board!")
+    (js/alert "Pause the game to edit board, either by\n- pressing spacebar\n- tapping with two fingers")
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
                                                                "#f0f0d0"
@@ -31,7 +31,7 @@
 
 (defn- draw-board [width height]
   (let [w (:w board)]
-    [:div.board
+    [:div.board {:id "board"}
      [:svg.board {:width width :height height}
       (loop [board (:board board) blocks nil x 0 y 0 i 0]
         (if (empty? board) blocks
@@ -48,17 +48,22 @@
                      y)
                    (inc i))))]]))
 
-(defn- handler [event]
-  (if (= 32 event.keyCode)
-    (if (:start board)
-      (set! board (assoc board :start false))
-      (set! board (assoc board :start true)))))
+(defn- keydown-handler [event]
+  (if (and (= 32 event.keyCode)
+           (.getElementById js/document "board"))
+    (set! board (assoc board :start (not (:start board))))))
+
+(defn- touchstart-handler [event]
+  (if (and (= 2 event.touches.length)
+           (.getElementById js/document "board"))
+    (set! board (assoc board :start (not (:start board))))))
 
 (defn create-board []
   (let [{w :w h :h} board]
     (set! board (assoc board :board (life-utils/init-game w h)))
     (draw-board (* blocksize w) (* blocksize h)))
-  (js/document.addEventListener "keydown" handler))
+  (js/document.addEventListener "keydown" keydown-handler)
+  (js/document.addEventListener "touchstart" touchstart-handler))
 
 (defn update-board []
   (let [{w :w h :h} board]
