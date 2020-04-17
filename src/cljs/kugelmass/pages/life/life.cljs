@@ -23,11 +23,16 @@
       (set! board (assoc board :board (update (:board board) id not))))))
 
 (defn- block [id x y color]
-  [:rect.block {:id id
-                :x x
-                :y y
-                :fill color
-                :on-click #(toggle id)}])
+  [:rect {:id id
+          :x x
+          :y y
+          :fill color
+          :on-click #(toggle id)
+          :width "16px"
+          :height "16px"
+          :rx "2px"
+          :stroke "lightgray"
+          :stroke-width "1px"}])
 
 (defn- draw-board [width height]
   (let [w (:w board)]

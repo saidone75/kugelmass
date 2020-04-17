@@ -99,11 +99,3 @@ div.toolbar a:hover {
 div.board {
     text-align: center;
 }
-
-rect.block {
-    width: 16px;
-    height: 16px;
-    rx: 2px;
-    stroke: lightgray;
-    stroke-width: 1px;
-}
