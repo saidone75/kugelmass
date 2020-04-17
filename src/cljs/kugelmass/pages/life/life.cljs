@@ -94,5 +94,8 @@
 
 (defn update-board []
   (if (:start board)
-    (set! board (assoc board :board (life-utils/compute-next-gen board))))
+    (let [prev-board (:board board)]
+      (set! board (assoc board :board (life-utils/compute-next-gen board)))
+      (if (= prev-board (:board board))
+        (set! board (assoc board :start false)))))
   (draw-board (* blocksize (:w board)) (* blocksize (:h board))))
