@@ -87,8 +87,8 @@
       (and (not (pos? distance)) (< 150 (Math.abs distance)))(randomize-board))))
 
 (defn create-board []
-  (randomize-board)
-  (set! board (assoc board :start true))
+  (if (not (:board board))
+    (randomize-board))
   (js/document.addEventListener "keydown" keydown-handler)
   (js/document.addEventListener "touchstart" touchstart-handler)
   (js/document.addEventListener "touchend" touchend-handler))
