@@ -23,7 +23,7 @@
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board @board) id)
                                                                color-false
                                                                color-true))
-      (swap! board assoc :board (update (:board board) id not)))))
+      (swap! board assoc :board (update (:board @board) id not)))))
 
 (defn- block [id x y color]
   [:rect {:id id
