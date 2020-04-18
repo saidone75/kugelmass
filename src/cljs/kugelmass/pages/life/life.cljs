@@ -37,32 +37,31 @@
           :stroke "lightgray"
           :stroke-width "1px"}])
 
-(defn- draw-board [width height]
-  (let [w (:w board)]
-    [:div.board {:id "board"}
-     [:svg.board {:width width :height height}
-      (loop [board (:board board) blocks '() i 0]
-        (if (empty? board) blocks
-            (recur (rest board)
-                   (conj blocks ^{:key i} [block i
-                                           (* blocksize (mod i w))
-                                           (* blocksize (quot i w))
-                                           (if (first board)
-                                             color-true
-                                             color-false)])
+(defn- draw-board [w h]
+  [:div.board {:id "board"}
+   [:svg.board {:width (* blocksize w) :height (* blocksize h)}
+    (loop [board (:board board) blocks '() i 0]
+      (if (empty? board) blocks
+          (recur (rest board)
+                 (conj blocks ^{:key i} [block i
+                                         (* blocksize (mod i w))
+                                         (* blocksize (quot i w))
+                                         (if (first board)
+                                           color-true
+                                           color-false)])
 
-                   (inc i))))]]))
+                 (inc i))))]])
 
 (defn- randomize-board []
   (let [{w :w h :h} board]
     (set! board (assoc board :board (life-utils/init-game w h)))
-    (draw-board (* blocksize w) (* blocksize h))))
+    (draw-board w h)))
 
 (defn- clear-board []
   (let [{w :w h :h} board]
     (set! board (assoc board :start false))
     (set! board (assoc board :board (vec (take (* w h) (repeat false)))))
-    (draw-board (* blocksize w) (* blocksize h))))
+    (draw-board w h)))
 
 (defn- keydown-handler [event]
   (if (.getElementById js/document "board")
@@ -99,4 +98,4 @@
       (set! board (assoc board :board (life-utils/compute-next-gen board)))
       (if (= prev-board (:board board))
         (set! board (assoc board :start false)))))
-  (draw-board (* blocksize (:w board)) (* blocksize (:h board))))
+  (draw-board (:w board) (:h board)))
