@@ -71,7 +71,7 @@
       (= 82 event.keyCode) (randomize-board)
       (= 67 event.keyCode) (clear-board))))  
 
-(def touchstart-pageX nil)
+(defonce touchstart-pageX nil)
 
 (defn- touchstart-handler [event]
   (if (.getElementById js/document "board")
@@ -88,6 +88,7 @@
 
 (defn create-board []
   (randomize-board)
+  (set! board (assoc board :start true))
   (js/document.addEventListener "keydown" keydown-handler)
   (js/document.addEventListener "touchstart" touchstart-handler)
   (js/document.addEventListener "touchend" touchend-handler))
