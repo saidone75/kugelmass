@@ -6,6 +6,9 @@
 
 (defonce blocksize 20)
 
+(defonce color-true "#566a12")
+(defonce color-false "#f0f0d0")
+
 (defonce board {})
 
 (set! board (assoc board :w (quot (* .80 window-width) blocksize)))
@@ -18,8 +21,8 @@
     (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear board and pause\n- r or swipe right to randomize board")
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board board) id)
-                                                               "#f0f0d0"
-                                                               "#566a12"))
+                                                               color-false
+                                                               color-true))
       (set! board (assoc board :board (update (:board board) id not))))))
 
 (defn- block [id x y color]
@@ -38,19 +41,16 @@
   (let [w (:w board)]
     [:div.board {:id "board"}
      [:svg.board {:width width :height height}
-      (loop [board (:board board) blocks nil x 0 y 0 i 0]
+      (loop [board (:board board) blocks '() i 0]
         (if (empty? board) blocks
             (recur (rest board)
-                   (conj blocks ^{:key i} [block i x y
+                   (conj blocks ^{:key i} [block i
+                                           (* blocksize (mod i w))
+                                           (* blocksize (quot i w))
                                            (if (first board)
-                                             "#566a12"
-                                             "#f0f0d0")])
-                   (if (= 0 (mod (inc i) w))
-                     0
-                     (+ blocksize x))
-                   (if (= 0 (mod (inc i) w))
-                     (+ blocksize y)
-                     y)
+                                             color-true
+                                             color-false)])
+
                    (inc i))))]]))
 
 (defn- randomize-board []
