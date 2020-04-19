@@ -71,6 +71,7 @@
       (= 67 event.keyCode) (clear-board))))  
 
 (defonce touchstart-pageX nil)
+(defonce swipe-threshold (/ window-width 3))
 
 (defn- touchstart-handler [event]
   (if (.getElementById js/document "board")
@@ -79,11 +80,12 @@
       :else (set! touchstart-pageX (-> event.changedTouches (aget 0) (aget "pageX"))))))
 
 (defn- touchend-handler [event]
+  (js/console.log swipe-threshold)
   (let [touchend-pageX (-> event.changedTouches (aget 0) (aget "pageX"))
         distance (- touchend-pageX touchstart-pageX)]
     (cond
-      (< distance -150) (clear-board)
-      (> distance 150) (randomize-board))))
+      (< distance (* -1 swipe-threshold)) (clear-board)
+      (> distance swipe-threshold) (randomize-board))))
 
 (defn create-board []
   (if (not (:board @board))
