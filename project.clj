@@ -17,7 +17,7 @@
                  [org.danielsz/system "0.4.1"]
                  [org.clojure/tools.namespace "0.2.11"]
                  [compojure "1.6.1"]
-                 [reagent "0.9.1"]
+                 [reagent "0.10.0"]
                  [secretary "1.2.3"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]

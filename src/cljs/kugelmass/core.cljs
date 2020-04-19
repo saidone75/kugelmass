@@ -1,5 +1,5 @@
 (ns kugelmass.core
-  (:require [reagent.core :as reagent :refer [atom]]
+  (:require [reagent.core :as r :refer [atom]]
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
             [kugelmass.pages :as pages]
@@ -10,7 +10,7 @@
 
 (enable-console-print!)
 
-(defonce app-state (atom {}))
+(defonce app-state (r/atom {}))
 
 (defonce intervals (atom {}))
 
@@ -69,7 +69,7 @@
     (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 8000 (rand-int 4000))))))
 
 (defn- render []
-  (reagent/render [site] (js/document.getElementById "app")))
+  (reagent.dom/render [site] (js/document.getElementById "app")))
 
 (let [h (History.)]
   (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
