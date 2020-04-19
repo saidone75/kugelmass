@@ -76,14 +76,14 @@
   (if (.getElementById js/document "board")
     (cond
       (= 2 event.touches.length) (swap! board assoc :start (not (:start @board)))
-      :else (set! touchstart-pageX (aget (aget event.changedTouches 0) "pageX")))))
+      :else (set! touchstart-pageX (-> event.changedTouches (aget 0) (aget "pageX"))))))
 
 (defn- touchend-handler [event]
-  (let [touchend-pageX (aget (aget event.changedTouches 0) "pageX")
-        distance (- touchstart-pageX touchend-pageX)]
+  (let [touchend-pageX (-> event.changedTouches (aget 0) (aget "pageX"))
+        distance (- touchend-pageX touchstart-pageX)]
     (cond
-      (and (pos? distance) (< 150 (Math.abs distance))) (clear-board)
-      (and (not (pos? distance)) (< 150 (Math.abs distance)))(randomize-board))))
+      (< distance -150) (clear-board)
+      (> distance 150) (randomize-board))))
 
 (defn create-board []
   (if (not (:board @board))
