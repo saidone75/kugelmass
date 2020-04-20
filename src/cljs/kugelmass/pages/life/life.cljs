@@ -18,12 +18,30 @@
 
 (defn- toggle [id]
   (if (:start @board)
-    (js/alert "Pause the game to edit board, either by:\n- pressing spacebar\n- tapping with two fingers\nOther commands:\n- c or swipe left to clear board and pause\n- r or swipe right to randomize board")
+    (do
+      (.toggle (aget (.getElementById js/document "usage") "classList") "show-modal")
+      )
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board @board) id)
                                                                color-false
                                                                color-true))
       (swap! board assoc :board (update (:board @board) id not)))))
+
+(defn- close-modal []
+  (.toggle (aget (.getElementById js/document "usage") "classList") "show-modal"))
+
+(defn- modal []
+  [:div.modal {:id "usage"
+               :on-click #(close-modal)}
+   [:div.modal-content
+    [:b "USAGE"] [:br]
+    "Pause the game to edit board, either by:" [:br]
+    "pressing spacebar" [:br]
+    "or" [:br]
+    "tapping with two fingers" [:br] [:br]
+    "Other commands:" [:br]
+    "\"c\" or swipe left to clear board " [:b "*and*"] " pause" [:br]
+    "\"r\" or swipe right to randomize board"]])
 
 (defn- block [id x y color]
   [:rect {:id id
@@ -39,6 +57,7 @@
 
 (defn- draw-board [w h]
   [:div.board {:id "board"}
+   (modal)
    [:svg.board {:width (* blocksize w) :height (* blocksize h)}
     (loop [board (:board @board) blocks '() i 0]
       (if (empty? board) blocks
@@ -49,7 +68,6 @@
                                          (if (first board)
                                            color-true
                                            color-false)])
-
                  (inc i))))]])
 
 (defn- randomize-board []
@@ -68,7 +86,8 @@
     (cond
       (= 32 event.keyCode) (swap! board assoc :start (not (:start @board)))
       (= 82 event.keyCode) (randomize-board)
-      (= 67 event.keyCode) (clear-board))))  
+      (= 67 event.keyCode) (do (clear-board)
+                               (swap! board assoc :start false)))))
 
 (defonce touchstart-pageX {})
 (defonce swipe-threshold (/ window-width 3))
