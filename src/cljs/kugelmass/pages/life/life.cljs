@@ -72,7 +72,7 @@
 
 (defonce touchstart-pageX {})
 (defonce swipe-threshold (/ window-width 3))
-(defonce time-threshold 180)
+(defonce time-threshold {:min 180 :max 1000})
 
 (defn- touchstart-handler [event]
   (if (.getElementById js/document "board")
@@ -86,7 +86,7 @@
                         :t (.getTime (js/Date.))}
         distance (- (:x touchend-pageX) (:x touchstart-pageX))
         time (- (:t touchend-pageX) (:t touchstart-pageX))]
-    (if (> time time-threshold)
+    (if (and (> time (:min time-threshold)) (< time (:max time-threshold)))
       (cond
         (< distance (* -1 swipe-threshold)) (clear-board)
         (> distance swipe-threshold) (randomize-board)))))
