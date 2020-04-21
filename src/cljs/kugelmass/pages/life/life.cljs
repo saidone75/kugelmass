@@ -31,7 +31,10 @@
 (defn- modal []
   [:div.modal {:id "usage"
                :on-click #(toggle-modal)}
-   [:div.modal-content
+   [:div.modal-content {:class (let [ratio (/ window-width window-height)]
+                                 (if (> ratio 1)
+                                   "modal-content-large"
+                                   "modal-content-small"))}
     [:b "USAGE"] [:br]
     "Pause the game to edit board, either by:" [:br]
     "pressing spacebar" [:br]

@@ -113,14 +113,24 @@ div.modal {
 
 div.modal-content {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
     border-radius: 8px;
     padding: 16px;
     background-color: #f0f0d0;
     line-height: 1.6;
+}
+
+div.modal-content-small {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;    
+}
+
+div.modal-content-large {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;    
 }
 
 div.show-modal {
