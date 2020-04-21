@@ -47,9 +47,11 @@
      (compute-index (:x coords) (incy (:y coords)) w)
      (compute-index (incx (:x coords)) (incy (:y coords)) w)]))
 
+(def memo-neighbours (memoize neighbours))
+
 ;; get alive neighbours count
 (defn- count-alive-neighbours [n board]
-  (let [neighbours (neighbours n (:w board) (:h board))]
+  (let [neighbours (memo-neighbours n (:w board) (:h board))]
     (reduce
      #(if (is-alive %2 board)
         (inc %1)
