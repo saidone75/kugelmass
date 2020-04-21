@@ -16,23 +16,21 @@
 
 (swap! board assoc :start true)
 
+(defn- toggle-modal []
+  (-> (.getElementById js/document "usage") (aget "classList") (.toggle "show-modal")))
+
 (defn- toggle [id]
   (if (:start @board)
-    (do
-      (.toggle (aget (.getElementById js/document "usage") "classList") "show-modal")
-      )
+    (toggle-modal)
     (do
       (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board @board) id)
                                                                color-false
                                                                color-true))
       (swap! board assoc :board (update (:board @board) id not)))))
 
-(defn- close-modal []
-  (.toggle (aget (.getElementById js/document "usage") "classList") "show-modal"))
-
 (defn- modal []
   [:div.modal {:id "usage"
-               :on-click #(close-modal)}
+               :on-click #(toggle-modal)}
    [:div.modal-content
     [:b "USAGE"] [:br]
     "Pause the game to edit board, either by:" [:br]
