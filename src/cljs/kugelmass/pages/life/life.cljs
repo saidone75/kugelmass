@@ -123,5 +123,5 @@
     (let [prev-board (:board @board)]
       (swap! board assoc :board (life-utils/compute-next-gen @board))
       (if (= prev-board (:board @board))
-        (swap! board assoc @board :start false))))
+        (swap! board assoc :start false))))
   (draw-board (:w @board) (:h @board)))
