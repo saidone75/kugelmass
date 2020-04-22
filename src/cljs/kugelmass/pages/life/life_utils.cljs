@@ -47,6 +47,7 @@
      (compute-index (:x coords) (incy (:y coords)) w)
      (compute-index (incx (:x coords)) (incy (:y coords)) w)]))
 
+;; memoize neighbours
 (def memo-neighbours (memoize neighbours))
 
 ;; get alive neighbours count

@@ -90,7 +90,7 @@
       (= 67 event.keyCode) (do (clear-board)
                                (swap! board assoc :start false)))))
 
-(defonce touchstart-pageX {})
+(defonce touchstart {})
 (defonce swipe-threshold (/ window-width 3))
 (defonce time-threshold {:min 180 :max 1000})
 
@@ -98,14 +98,14 @@
   (if (.getElementById js/document "board")
     (cond
       (= 2 event.touches.length) (swap! board assoc :start (not (:start @board)))
-      :else (set! touchstart-pageX {:x (-> event.changedTouches (aget 0) (aget "pageX"))
-                                    :t (.getTime (js/Date.))}))))
+      :else (set! touchstart {:x (-> event.changedTouches (aget 0) (aget "pageX"))
+                              :t (.getTime (js/Date.))}))))
 
 (defn- touchend-handler [event]
-  (let [touchend-pageX {:x (-> event.changedTouches (aget 0) (aget "pageX"))
-                        :t (.getTime (js/Date.))}
-        distance (- (:x touchend-pageX) (:x touchstart-pageX))
-        time (- (:t touchend-pageX) (:t touchstart-pageX))]
+  (let [touchend {:x (-> event.changedTouches (aget 0) (aget "pageX"))
+                  :t (.getTime (js/Date.))}
+        distance (- (:x touchend) (:x touchstart))
+        time (- (:t touchend) (:t touchstart))]
     (if (and (> time (:min time-threshold)) (< time (:max time-threshold)))
       (cond
         (< distance (* -1 swipe-threshold)) (clear-board)
