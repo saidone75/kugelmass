@@ -69,8 +69,10 @@
    []
    (partition 2 quotes)))
 
+(def memo-make-quotes (memoize make-quotes))
+
 (defn get-quote []
-  (let [quote (rand-nth (make-quotes quotes))]
+  (let [quote (rand-nth (memo-make-quotes quotes))]
     (str \" (:quote quote) \"
          (if (nil? (:author quote))
            nil
