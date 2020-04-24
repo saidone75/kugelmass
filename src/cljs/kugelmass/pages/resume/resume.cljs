@@ -8,11 +8,11 @@
     " ("
     [:a {:href "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x97c97241f9be57f1"} "my GPG key here"]
     ")" [:br] [:br]
-    [:a {:href "https://github.com/saidone75"} [:img {:src "/images/github.png" :alt "GitHub"}]]
+    [:a {:href "https://github.com/saidone75"} [:img.logo {:src "/images/github.svg" :alt "GitHub"}]]
     " "
-    [:a {:href "https://twitter.com/saidone"} [:img {:src "/images/twitter.png" :alt "Twitter"}]]
+    [:a {:href "https://twitter.com/saidone"} [:img.logo {:src "/images/twitter.svg" :alt "Twitter"}]]
     " "
-    [:a {:href "https://www.linkedin.com/in/saidone/"} [:img {:src "/images/linkedin.png" :alt "LinkedIn"}]] [:br] [:br]
+    [:a {:href "https://www.linkedin.com/in/saidone/"} [:img.logo {:src "/images/linkedin.svg" :alt "LinkedIn"}]] [:br] [:br]
     "Marco Marini" [:br]
     "Viale delle Fontanelle 6" [:br]
     "37047 San Bonifacio VR" [:br]

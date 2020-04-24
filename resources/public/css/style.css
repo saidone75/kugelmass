@@ -134,3 +134,7 @@ div.show-modal {
     opacity: 1;
     visibility: visible;
 }
+
+img.logo {
+    width: 32px;
+}
