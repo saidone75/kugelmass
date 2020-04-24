@@ -34,9 +34,10 @@
   (load-page :resume))
 
 (defn- header []
-  [:div.header
-   [:div.title "S A I D O N E"]
-   [:div.tagline (:tagline @app-state)]])
+  [:a {:href "/#/"}
+   [:div.header
+    [:div.title "S A I D O N E"]
+    [:div.tagline (:tagline @app-state)]]])
 
 (defn- content [page]
   [:div.content {:id "content"} (:content @app-state)])

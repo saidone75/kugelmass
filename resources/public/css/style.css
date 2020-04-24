@@ -14,6 +14,10 @@ div.header {
     padding: 16px;
 }
 
+a {
+    text-decoration: none;
+}
+
 div.header div.title {
     font-weight: bold;
     font-size: 1.4em;
