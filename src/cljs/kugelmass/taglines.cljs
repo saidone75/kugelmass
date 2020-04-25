@@ -12,6 +12,7 @@
                ;; "nice shoes, wanna fuck?"
                ;; "ribbed for her pleasure!"
                "it's like warm apple pie!"
+               "the enemy knows the system"
                "there is always one more bug"
                ;; "so many cats, so few recipes"
                "go play leapfrog with a unicorn"
