@@ -5,7 +5,7 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.597" :scope "provided"]
+                 [org.clojure/clojurescript "1.10.741" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.324"]
                  [ring "1.8.0"]
                  [ring/ring-defaults "0.3.2"]
@@ -21,7 +21,7 @@
                  [reagent "0.10.0"]
                  [clj-commons/secretary "1.2.4"]]
 
-  :plugins [[lein-cljsbuild "1.1.7"]
+  :plugins [[lein-cljsbuild "1.1.8"]
             [lein-environ "1.1.0"]]
 
   :min-lein-version "2.6.1"
