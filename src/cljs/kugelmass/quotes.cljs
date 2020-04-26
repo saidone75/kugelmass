@@ -30,6 +30,8 @@
               "Groucho Marx"
               #{"Outside of a dog, a book is a man's best friend. Inside of a dog it's too dark to read."
                 "I find television very educating. Every time somebody turns on the set, I go into the other room and read a book."}
+              "Marvin Minsky"
+              #{"You don't understand anything until you learn it more than one way."}
               "Alan Perlis"
               #{"A language that doesn't affect the way you think about programming, is not worth knowing."
                 "If you have a procedure with 10 parameters, you probably missed some."
@@ -50,7 +52,8 @@
               #{"The memory management on the PowerPC can be used to frighten small children."}
               "Voltaire"
               #{"Quand il s’agit d’argent, tout le monde est de la même religion."
-                "Le mieux est l'ennemi du bien."}
+                "Le mieux est l'ennemi du bien."
+                "Où est l'amitié est la patrie."}
               "Frank Zappa"
               #{"Politics is the entertainment branch of industry."
                 "There are three things that smell of fish. One of them is fish. The other two are growing on you!"
