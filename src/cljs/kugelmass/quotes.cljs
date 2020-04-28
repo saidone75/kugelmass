@@ -19,6 +19,8 @@
                 "Hofstadter's Law: It always takes longer than you expect, even when you take into account Hofstadter's Law."}
               "Steve Jobs"
               #{"It's more fun to be a pirate than to join the Navy."}
+              "Alan Kay"
+              #{"A change in perspective is worth 80 IQ points."}
               "Brian Kernighan"
               #{"Controlling complexity is the essence of computer programming."}
               "Donald Knuth"
@@ -38,7 +40,8 @@
                 "LISP programmers know the value of everything and the cost of nothing."
                 "Fools ignore complexity. Pragmatists suffer it. Some can avoid it. Geniuses remove it."}
               "Pablo Picasso"
-              #{"Computers are useless. They can only give you answers."}
+              #{"Computers are useless. They can only give you answers."
+                "On met très longtemps à devenir jeune."}
               "Robert Sewell"
               #{"If Java had true garbage collection, most programs would delete themselves upon execution."}
               "Jeff Sickel"

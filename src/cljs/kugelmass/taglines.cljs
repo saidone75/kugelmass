@@ -19,6 +19,7 @@
                "use only under adult supervision"
                "often imitated, never duplicated!"
                "the right choice for a healthy pet"
+               "a likely place - and probably true"
                "abandon hope, all ye who enter here"
                "about as cool as a fart in a spacesuit"
                ;; "now doesn't that make you feel better?"
