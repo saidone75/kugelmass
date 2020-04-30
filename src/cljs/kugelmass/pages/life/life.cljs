@@ -1,5 +1,6 @@
 (ns kugelmass.pages.life.life
-  (:require [kugelmass.pages.life.life-utils :as life-utils]))
+  (:require [kugelmass.pages.life.life-utils :as life-utils]
+            [reagent.core :as r]))
 
 (defonce window-width  (.-innerWidth js/window))
 (defonce window-height  (.-innerHeight js/window))
@@ -10,6 +11,8 @@
 (defonce color-false "#f0f0d0")
 
 (defonce board (atom {}))
+
+(defonce state (r/atom {}))
 
 (swap! board assoc :w (quot (* .80 window-width) blocksize))
 (swap! board assoc :h (quot (* .70 window-height) blocksize))
@@ -23,10 +26,8 @@
   (if (:start @board)
     (toggle-modal)
     (do
-      (.setAttribute (.getElementById js/document id) "fill" (if (nth (:board @board) id)
-                                                               color-false
-                                                               color-true))
-      (swap! board assoc :board (update (:board @board) id not)))))
+      (swap! board assoc :board (update (:board @board) id not))
+      (draw-board (:w @board) (:h @board)))))
 
 (defn- modal []
   [:div.modal {:id "usage"
@@ -57,19 +58,20 @@
           :stroke-width "1px"}])
 
 (defn- draw-board [w h]
-  [:div.board {:id "board"}
-   (modal)
-   [:svg.board {:width (* blocksize w) :height (* blocksize h)}
-    (loop [board (:board @board) blocks '() i 0]
-      (if (empty? board) blocks
-          (recur (rest board)
-                 (conj blocks ^{:key i} [block i
-                                         (* blocksize (mod i w))
-                                         (* blocksize (quot i w))
-                                         (if (first board)
-                                           color-true
-                                           color-false)])
-                 (inc i))))]])
+  (swap! state assoc :content
+         [:div.board {:id "board"}
+          (modal)
+          [:svg.board {:width (* blocksize w) :height (* blocksize h)}
+           (loop [board (:board @board) blocks '() i 0]
+             (if (empty? board) blocks
+                 (recur (rest board)
+                        (conj blocks ^{:key i} [block i
+                                                (* blocksize (mod i w))
+                                                (* blocksize (quot i w))
+                                                (if (first board)
+                                                  color-true
+                                                  color-false)])
+                        (inc i))))]]))
 
 (defn- randomize-board []
   (let [{w :w h :h} @board]
@@ -111,13 +113,6 @@
         (< distance (* -1 swipe-threshold)) (clear-board)
         (> distance swipe-threshold) (randomize-board)))))
 
-(defn create-board []
-  (if (not (:board @board))
-    (randomize-board))
-  (js/document.addEventListener "keydown" keydown-handler)
-  (js/document.addEventListener "touchstart" touchstart-handler)
-  (js/document.addEventListener "touchend" touchend-handler))
-
 (defn update-board []
   (if (:start @board)
     (let [prev-board (:board @board)]
@@ -125,3 +120,14 @@
       (if (= prev-board (:board @board))
         (swap! board assoc :start false))))
   (draw-board (:w @board) (:h @board)))
+
+(defn create-board []
+  (if (not (:board @board))
+    (randomize-board))
+  (js/document.addEventListener "keydown" keydown-handler)
+  (js/document.addEventListener "touchstart" touchstart-handler)
+  (js/document.addEventListener "touchend" touchend-handler)
+  (if (nil? (:interval @state))
+    (swap! state assoc :interval (js/setInterval update-board 1000)))
+  (draw-board (:w @board) (:h @board))
+  state)

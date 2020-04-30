@@ -12,18 +12,13 @@
 
 (defonce app-state (r/atom {}))
 
+(defonce page-content (r/atom nil))
+
 (defonce intervals (atom {}))
 
 (defn- load-page [page]
-  (js/clearInterval (:page @intervals))
-  (let [page (pages/get-page page)]
-    (swap! app-state assoc :content (:content page))
-    (let [set-interval (:set-interval page)]
-      (if (not (nil? set-interval))
-        (swap! intervals assoc :page
-               (js/setInterval
-                #(swap! app-state assoc :content ((:function set-interval)))
-                (:interval set-interval)))))))
+  (set! page-content (pages/get-page page))
+(r/force-update-all))
 
 (secretary/set-config! :prefix "#")
 
@@ -38,8 +33,8 @@
    [:div.title [:a {:href "/#/"} "S A I D O N E"]]
    [:div.tagline (:tagline @app-state)]])
 
-(defn- content [page]
-  [:div.content {:id "content"} (:content @app-state)])
+(defn- content []
+  [:div.content {:id "content"} (:content @page-content)])
 
 (defn- footer []
   [:div.footer

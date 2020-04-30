@@ -1,15 +1,14 @@
 (ns kugelmass.pages
   (:require [kugelmass.pages.life.life :as life]
-            [kugelmass.pages.resume.resume :as resume]))
+            [kugelmass.pages.resume.resume :as resume]
+            [reagent.core :as r]))
 
 (defn- get-life []
-  {:content
-   (life/create-board)
-   :set-interval {:function life/update-board
-                  :interval 1000}})
+  (life/create-board))
 
 (defn- get-resume []
-  {:content resume/resume})
+  (r/atom {:content
+           resume/resume}))
 
 (defn get-page [page]
   (cond
