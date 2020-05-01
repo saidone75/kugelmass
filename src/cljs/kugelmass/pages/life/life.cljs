@@ -111,14 +111,14 @@
         (< distance (* -1 swipe-threshold)) (clear-board)
         (> distance swipe-threshold) (randomize-board)))))
 
-(defn update-board []
+(defn- update-board []
   (if (:start @state)
     (let [prev-board (:board @board)]
       (swap! board assoc :board (life-utils/compute-next-gen @board))
       (if (= prev-board (:board @board))
         (swap! state assoc :start false)))))
 
-(defn create-board []
+(defn- create-board []
   (if (not (:board @board))
     (do
       (randomize-board)
@@ -132,3 +132,6 @@
   (if (nil? (:interval @state))
     (swap! state assoc :interval (js/setInterval update-board 1000)))
   state)
+
+(defn content []
+  (create-board))

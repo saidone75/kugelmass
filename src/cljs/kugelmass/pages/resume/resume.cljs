@@ -83,3 +83,6 @@
    [:h1 "Certifications"]
    [:ul
     [:li "Alfresco Certified Engineer"]]])
+
+(defn content []
+  (atom {:content resume}))
