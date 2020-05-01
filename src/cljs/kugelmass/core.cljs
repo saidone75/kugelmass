@@ -18,7 +18,7 @@
 
 (defn- load-page [page]
   (set! page-state (pages/get-page page))
-  (render [content]))
+  (reagent.dom/render [content] (js/document.getElementById "content")))
 
 (secretary/set-config! :prefix "#")
 
