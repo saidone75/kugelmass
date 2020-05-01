@@ -11,6 +11,7 @@
 (defonce color-false "#f0f0d0")
 
 (defonce board (atom {}))
+
 (defonce state (r/atom {}))
 
 (swap! board assoc :w (quot (* .80 window-width) blocksize))
@@ -25,8 +26,7 @@
   (if (:start @state)
     (toggle-modal)
     (do
-      (swap! board assoc :board (update (:board @board) id not))
-      (draw-board))))
+      (swap! board assoc :board (update (:board @board) id not)))))
 
 (defn- modal []
   [:div.modal {:id "usage"
@@ -75,14 +75,12 @@
 
 (defn- randomize-board []
   (let [{w :w h :h} @board]
-    (swap! board assoc :board (life-utils/init-game w h))
-    (draw-board)))
+    (swap! board assoc :board (life-utils/init-game w h))))
 
 (defn- clear-board []
   (let [{w :w h :h} @board]
     (swap! state assoc :start false)
-    (swap! board assoc :board (vec (take (* w h) (repeat false))))
-    (draw-board)))
+    (swap! board assoc :board (vec (take (* w h) (repeat false))))))
 
 (defn- keydown-handler [event]
   (if (.getElementById js/document "board")
@@ -118,12 +116,13 @@
     (let [prev-board (:board @board)]
       (swap! board assoc :board (life-utils/compute-next-gen @board))
       (if (= prev-board (:board @board))
-        (swap! state assoc :start false))))
-  (draw-board))
+        (swap! state assoc :start false)))))
 
 (defn create-board []
   (if (not (:board @board))
-    (randomize-board))
+    (do
+      (randomize-board)
+      (add-watch board :board #(draw-board))))
   (if (nil? (:keydown @state))
     (js/document.addEventListener "keydown" keydown-handler))
   (if (nil? (:touchstart @state))
@@ -132,5 +131,4 @@
     (js/document.addEventListener "touchend" touchend-handler))
   (if (nil? (:interval @state))
     (swap! state assoc :interval (js/setInterval update-board 1000)))
-  (draw-board)
   state)
