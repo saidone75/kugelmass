@@ -134,18 +134,14 @@
         (swap! state assoc :start false)))))
 
 (defn- create-board []
-  (if (not (:board @board))
+  (if (nil? (:board @board))
     (do
       (randomize-board)
-      (add-watch board :board #(draw-board))))
-  (if (nil? (:keydown @state))
-    (js/document.addEventListener "keydown" keydown-handler))
-  (if (nil? (:touchstart @state))
-    (js/document.addEventListener "touchstart" touchstart-handler))
-  (if (nil? (:touchend @state))
-    (js/document.addEventListener "touchend" touchend-handler))
-  (if (nil? (:interval @state))
-    (swap! state assoc :interval (js/setInterval update-board 1000) :speed 1))
+      (add-watch board :board #(draw-board))
+      (js/document.addEventListener "keydown" keydown-handler)
+      (js/document.addEventListener "touchstart" touchstart-handler)
+      (js/document.addEventListener "touchend" touchend-handler)      
+      (swap! state assoc :interval (js/setInterval update-board 1000) :speed 1)))
   state)
 
 (defn content []
