@@ -18,7 +18,7 @@
 
 (defn- load-page [page]
   (set! page-state (pages/get-page page))
-  (r/force-update-all))
+  (render [content]))
 
 (secretary/set-config! :prefix "#")
 
