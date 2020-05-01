@@ -26,7 +26,7 @@
     (toggle-modal)
     (do
       (swap! board assoc :board (update (:board @board) id not))
-      (draw-board (:w @board) (:h @board)))))
+      (draw-board))))
 
 (defn- modal []
   [:div.modal {:id "usage"
@@ -56,32 +56,33 @@
           :stroke "lightgray"
           :stroke-width "1px"}])
 
-(defn- draw-board [w h]
-  (swap! state assoc :content
-         [:div.board {:id "board"}
-          (modal)
-          [:svg.board {:width (* blocksize w) :height (* blocksize h)}
-           (loop [board (:board @board) blocks '() i 0]
-             (if (empty? board) blocks
-                 (recur (rest board)
-                        (conj blocks ^{:key i} [block i
-                                                (* blocksize (mod i w))
-                                                (* blocksize (quot i w))
-                                                (if (first board)
-                                                  color-true
-                                                  color-false)])
-                        (inc i))))]]))
+(defn- draw-board []
+  (let [{w :w h :h board :board} @board]
+    (swap! state assoc :content
+           [:div.board {:id "board"}
+            (modal)
+            [:svg.board {:width (* blocksize w) :height (* blocksize h)}
+             (loop [board board blocks '() i 0]
+               (if (empty? board) blocks
+                   (recur (rest board)
+                          (conj blocks ^{:key i} [block i
+                                                  (* blocksize (mod i w))
+                                                  (* blocksize (quot i w))
+                                                  (if (first board)
+                                                    color-true
+                                                    color-false)])
+                          (inc i))))]])))
 
 (defn- randomize-board []
   (let [{w :w h :h} @board]
     (swap! board assoc :board (life-utils/init-game w h))
-    (draw-board w h)))
+    (draw-board)))
 
 (defn- clear-board []
   (let [{w :w h :h} @board]
     (swap! state assoc :start false)
     (swap! board assoc :board (vec (take (* w h) (repeat false))))
-    (draw-board w h)))
+    (draw-board)))
 
 (defn- keydown-handler [event]
   (if (.getElementById js/document "board")
@@ -118,7 +119,7 @@
       (swap! board assoc :board (life-utils/compute-next-gen @board))
       (if (= prev-board (:board @board))
         (swap! state assoc :start false))))
-  (draw-board (:w @board) (:h @board)))
+  (draw-board))
 
 (defn create-board []
   (if (not (:board @board))
@@ -131,5 +132,5 @@
     (js/document.addEventListener "touchend" touchend-handler))
   (if (nil? (:interval @state))
     (swap! state assoc :interval (js/setInterval update-board 1000)))
-  (draw-board (:w @board) (:h @board))
+  (draw-board)
   state)
