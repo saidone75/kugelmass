@@ -1,7 +1,7 @@
 (ns kugelmass.pages
-  (:require [kugelmass.pages.life.life :as life]
-            [kugelmass.pages.resume.resume :as resume]
-            [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [kugelmass.pages.life.life :as life]
+            [kugelmass.pages.resume.resume :as resume]))
 
 (defn- get-life []
   (life/create-board))

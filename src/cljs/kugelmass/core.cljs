@@ -1,5 +1,5 @@
 (ns kugelmass.core
-  (:require [reagent.core :as r :refer [atom]]
+  (:require [reagent.core :as r]
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
             [kugelmass.pages :as pages]
@@ -12,13 +12,13 @@
 
 (defonce app-state (r/atom {}))
 
-(defonce page-content (r/atom nil))
+(defonce page-state (r/atom nil))
 
 (defonce intervals (atom {}))
 
 (defn- load-page [page]
-  (set! page-content (pages/get-page page))
-(r/force-update-all))
+  (set! page-state (pages/get-page page))
+  (r/force-update-all))
 
 (secretary/set-config! :prefix "#")
 
@@ -34,7 +34,7 @@
    [:div.tagline (:tagline @app-state)]])
 
 (defn- content []
-  [:div.content {:id "content"} (:content @page-content)])
+  [:div.content {:id "content"} (:content @page-state)])
 
 (defn- footer []
   [:div.footer

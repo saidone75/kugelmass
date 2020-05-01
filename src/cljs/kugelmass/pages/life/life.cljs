@@ -1,6 +1,6 @@
 (ns kugelmass.pages.life.life
-  (:require [kugelmass.pages.life.life-utils :as life-utils]
-            [reagent.core :as r]))
+  (:require [reagent.core :as r]
+            [kugelmass.pages.life.life-utils :as life-utils]))
 
 (defonce window-width  (.-innerWidth js/window))
 (defonce window-height  (.-innerHeight js/window))
@@ -11,19 +11,18 @@
 (defonce color-false "#f0f0d0")
 
 (defonce board (atom {}))
-
 (defonce state (r/atom {}))
 
 (swap! board assoc :w (quot (* .80 window-width) blocksize))
 (swap! board assoc :h (quot (* .70 window-height) blocksize))
 
-(swap! board assoc :start true)
+(swap! state assoc :start true)
 
 (defn- toggle-modal []
   (-> (.getElementById js/document "usage") (aget "classList") (.toggle "show-modal")))
 
 (defn- toggle [id]
-  (if (:start @board)
+  (if (:start @state)
     (toggle-modal)
     (do
       (swap! board assoc :board (update (:board @board) id not))
@@ -80,17 +79,17 @@
 
 (defn- clear-board []
   (let [{w :w h :h} @board]
-    (swap! board assoc :start false)
+    (swap! state assoc :start false)
     (swap! board assoc :board (vec (take (* w h) (repeat false))))
     (draw-board w h)))
 
 (defn- keydown-handler [event]
   (if (.getElementById js/document "board")
     (cond
-      (= 32 event.keyCode) (swap! board assoc :start (not (:start @board)))
+      (= 32 event.keyCode) (swap! state assoc :start (not (:start @state)))
       (= 82 event.keyCode) (randomize-board)
       (= 67 event.keyCode) (do (clear-board)
-                               (swap! board assoc :start false)))))
+                               (swap! state assoc :start false)))))
 
 (defonce touchstart {})
 (defonce swipe-threshold (/ window-width 3))
@@ -99,7 +98,7 @@
 (defn- touchstart-handler [event]
   (if (.getElementById js/document "board")
     (cond
-      (= 2 event.touches.length) (swap! board assoc :start (not (:start @board)))
+      (= 2 event.touches.length) (swap! state assoc :start (not (:start @state)))
       :else (set! touchstart {:x (-> event.changedTouches (aget 0) (aget "pageX"))
                               :t (.getTime (js/Date.))}))))
 
@@ -114,19 +113,22 @@
         (> distance swipe-threshold) (randomize-board)))))
 
 (defn update-board []
-  (if (:start @board)
+  (if (:start @state)
     (let [prev-board (:board @board)]
       (swap! board assoc :board (life-utils/compute-next-gen @board))
       (if (= prev-board (:board @board))
-        (swap! board assoc :start false))))
+        (swap! state assoc :start false))))
   (draw-board (:w @board) (:h @board)))
 
 (defn create-board []
   (if (not (:board @board))
     (randomize-board))
-  (js/document.addEventListener "keydown" keydown-handler)
-  (js/document.addEventListener "touchstart" touchstart-handler)
-  (js/document.addEventListener "touchend" touchend-handler)
+  (if (nil? (:keydown @state))
+    (js/document.addEventListener "keydown" keydown-handler))
+  (if (nil? (:touchstart @state))
+    (js/document.addEventListener "touchstart" touchstart-handler))
+  (if (nil? (:touchend @state))
+    (js/document.addEventListener "touchend" touchend-handler))
   (if (nil? (:interval @state))
     (swap! state assoc :interval (js/setInterval update-board 1000)))
   (draw-board (:w @board) (:h @board))
