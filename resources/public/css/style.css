@@ -127,6 +127,11 @@ div.modal-content {
     transform: translate(-50%, -50%);
 }
 
+div.modal-content a {
+    color: #566a12;
+    text-decoration: underline;
+}
+
 div.modal-content-small {
     width: 60%;    
 }

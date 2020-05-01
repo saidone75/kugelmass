@@ -42,7 +42,8 @@
     "tapping with two fingers" [:br] [:br]
     "Other commands:" [:br]
     "\"c\" or swipe left to clear board " [:b "*and*"] " pause" [:br]
-    "\"r\" or swipe right to randomize board"]])
+    "\"r\" or swipe right to randomize board" [:br] [:br]
+    "More on " [:a {:href "https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life"} "Conway's Game of Life"]]])
 
 (defn- block [id x y color]
   [:rect {:id id
