@@ -78,6 +78,18 @@
   (let [{w :w h :h} @board]
     (swap! board assoc :board (life-utils/init-game w h))))
 
+(defn- increase-speed []
+  (if (< (:speed @state) 8)
+    (do
+      (js/clearInterval (:interval @state))
+      (swap! state assoc :interval (js/setInterval update-board (quot 1000 (* (:speed @state) 2))) :speed (* (:speed @state) 2)))))
+
+(defn- decrease-speed []
+  (if (> (:speed @state) 1)
+    (do
+      (js/clearInterval (:interval @state))
+      (swap! state assoc :interval (js/setInterval update-board (quot 1000 (/ (:speed @state) 2))) :speed (/ (:speed @state) 2)))))
+
 (defn- clear-board []
   (let [{w :w h :h} @board]
     (swap! state assoc :start false)
@@ -89,7 +101,9 @@
       (= 32 event.keyCode) (swap! state assoc :start (not (:start @state)))
       (= 82 event.keyCode) (randomize-board)
       (= 67 event.keyCode) (do (clear-board)
-                               (swap! state assoc :start false)))))
+                               (swap! state assoc :start false))
+      (= 187 event.keyCode) (increase-speed)
+      (= 189 event.keyCode) (decrease-speed))))
 
 (defonce touchstart {})
 (defonce swipe-threshold (/ window-width 3))
@@ -131,7 +145,7 @@
   (if (nil? (:touchend @state))
     (js/document.addEventListener "touchend" touchend-handler))
   (if (nil? (:interval @state))
-    (swap! state assoc :interval (js/setInterval update-board 1000)))
+    (swap! state assoc :interval (js/setInterval update-board 1000) :speed 1))
   state)
 
 (defn content []
