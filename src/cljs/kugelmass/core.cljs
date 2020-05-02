@@ -42,8 +42,6 @@
 (defn- render []
   (reagent.dom/render [site] (js/document.getElementById "app")))
 
-(render)
-
 (defn- load-page [page]
   (set! page-state (pages/get-page page))
   (render))
