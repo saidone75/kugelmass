@@ -16,18 +16,6 @@
 
 (defonce intervals (atom {}))
 
-(defn- load-page [page]
-  (set! page-state (pages/get-page page))
-  (reagent.dom/render [content] (js/document.getElementById "content")))
-
-(secretary/set-config! :prefix "#")
-
-(secretary/defroute "/" []
-  (load-page :life))
-
-(secretary/defroute "/resume" []
-  (load-page :resume))
-
 (defn- header []
   [:div.header
    [:div.title [:a {:href "/#/"} "S A I D O N E"]]
@@ -53,6 +41,27 @@
     [content]]
    [footer]])
 
+(defn- render []
+  (reagent.dom/render [site] (js/document.getElementById "app")))
+
+(render)
+
+(defn- load-page [page]
+  (set! page-state (pages/get-page page))
+  (reagent.dom/render [content] (js/document.getElementById "content")))
+
+(secretary/set-config! :prefix "#")
+
+(secretary/defroute "/" []
+  (load-page :life))
+
+(secretary/defroute "/resume" []
+  (load-page :resume))
+
+(let [h (History.)]
+  (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
+  (doto h (.setEnabled true)))
+
 (defn- update-quote! []
   (swap! app-state assoc :quote (quotes/get-quote))
   (if (nil? (:quote @intervals))
@@ -62,13 +71,6 @@
   (swap! app-state assoc :tagline (taglines/get-tagline))
   (if (nil? (:tagline @intervals))
     (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 8000 (rand-int 4000))))))
-
-(defn- render []
-  (reagent.dom/render [site] (js/document.getElementById "app")))
-
-(let [h (History.)]
-  (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
-  (doto h (.setEnabled true)))
 
 (update-quote!)
 (update-tagline!)
