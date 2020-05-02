@@ -14,8 +14,6 @@
 
 (defonce page-state (r/atom nil))
 
-(defonce intervals (atom {}))
-
 (defn- header []
   [:div.header
    [:div.title [:a {:href "/#/"} "S A I D O N E"]]
@@ -48,7 +46,7 @@
 
 (defn- load-page [page]
   (set! page-state (pages/get-page page))
-  (reagent.dom/render [content] (js/document.getElementById "content")))
+  (render))
 
 (secretary/set-config! :prefix "#")
 
@@ -62,15 +60,8 @@
   (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
 
-(defn- update-quote! []
-  (swap! app-state assoc :quote (quotes/get-quote))
-  (if (nil? (:quote @intervals))
-    (swap! intervals assoc :quote (js/setInterval update-quote! (+ 12000 (rand-int 8000))))))
+(swap! app-state assoc :tagline (taglines/get-tagline))
+(swap! app-state assoc :quote (quotes/get-quote))
 
-(defn- update-tagline! []
-  (swap! app-state assoc :tagline (taglines/get-tagline))
-  (if (nil? (:tagline @intervals))
-    (swap! intervals assoc :tagline (js/setInterval update-tagline! (+ 8000 (rand-int 4000))))))
-
-(update-quote!)
-(update-tagline!)
+(js/setInterval #(swap! app-state assoc :tagline (taglines/get-tagline)) (+ 8000 (rand-int 4000)))
+(js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 12000 (rand-int 8000)))
