@@ -74,6 +74,13 @@
                                                     color-false)])
                           (inc i))))]])))
 
+(defn- update-board []
+  (if (:start @state)
+    (let [prev-board (:board @board)]
+      (swap! board assoc :board (life-utils/compute-next-gen @board))
+      (if (= prev-board (:board @board))
+        (swap! state assoc :start false)))))
+
 (defn- randomize-board []
   (let [{w :w h :h} @board]
     (swap! board assoc :board (life-utils/init-game w h))))
@@ -125,13 +132,6 @@
       (cond
         (< distance (* -1 swipe-threshold)) (clear-board)
         (> distance swipe-threshold) (randomize-board)))))
-
-(defn- update-board []
-  (if (:start @state)
-    (let [prev-board (:board @board)]
-      (swap! board assoc :board (life-utils/compute-next-gen @board))
-      (if (= prev-board (:board @board))
-        (swap! state assoc :start false)))))
 
 (defn- create-board []
   (if (nil? (:board @board))
