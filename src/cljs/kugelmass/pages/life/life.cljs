@@ -25,8 +25,7 @@
 (defn- toggle [id]
   (if (:start @state)
     (toggle-modal)
-    (do
-      (swap! board assoc :board (update (:board @board) id not)))))
+    (swap! board assoc :board (update (:board @board) id not))))
 
 (defn- modal []
   [:div.modal {:id "usage"
