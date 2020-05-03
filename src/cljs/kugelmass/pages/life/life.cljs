@@ -86,7 +86,7 @@
 
 (defn- increase-speed []
   (let [speed (:speed @state) interval (:interval @state)]
-    (if (< speed 16)
+    (if (< speed 32)
       (do
         (js/clearInterval interval)
         (swap! state assoc :interval (js/setInterval update-board (quot 1000 (* speed 2))) :speed (* speed 2))))))
