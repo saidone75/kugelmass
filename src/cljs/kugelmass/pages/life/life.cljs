@@ -85,16 +85,18 @@
     (swap! board assoc :board (life-utils/init-game w h))))
 
 (defn- increase-speed []
-  (if (< (:speed @state) 8)
-    (do
-      (js/clearInterval (:interval @state))
-      (swap! state assoc :interval (js/setInterval update-board (quot 1000 (* (:speed @state) 2))) :speed (* (:speed @state) 2)))))
+  (let [speed (:speed @state) interval (:interval @state)]
+    (if (< speed 16)
+      (do
+        (js/clearInterval interval)
+        (swap! state assoc :interval (js/setInterval update-board (quot 1000 (* speed 2))) :speed (* speed 2))))))
 
 (defn- decrease-speed []
-  (if (> (:speed @state) 1)
-    (do
-      (js/clearInterval (:interval @state))
-      (swap! state assoc :interval (js/setInterval update-board (quot 1000 (/ (:speed @state) 2))) :speed (/ (:speed @state) 2)))))
+  (let [speed (:speed @state) interval (:interval @state)]
+    (if (> speed 1)
+      (do
+        (js/clearInterval interval)
+        (swap! state assoc :interval (js/setInterval update-board (quot 1000 (/ speed 2))) :speed (/ speed 2))))))
 
 (defn- clear-board []
   (let [{w :w h :h} @board]
