@@ -18,10 +18,6 @@
 (defn- compute-coords [n w]
   {:x (mod n w) :y (quot n w)})
 
-;; check if a cell is alive
-(defn- is-alive [n board]
-  (true? (nth (:board board) n)))
-
 ;; get neighbours of a cell
 (defn- neighbours [n w h]
   (let [coords (compute-coords n w)
@@ -52,13 +48,12 @@
 
 ;; get alive neighbours count
 (defn- count-alive-neighbours [n board]
-  (let [neighbours (memo-neighbours n (:w board) (:h board))]
-    (reduce
-     #(if (is-alive %2 board)
-        (inc %1)
-        %1)
-     0
-     neighbours)))
+  (reduce
+   #(if (nth (:board board) %2)
+      (inc %1)
+      %1)
+   0
+   (memo-neighbours n (:w board) (:h board))))
 
 ;; compute next generation of board
 (defn compute-next-gen [board]
