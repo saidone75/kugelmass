@@ -1,5 +1,6 @@
 (ns kugelmass.core
   (:require [reagent.core :as r]
+            [reagent.dom :as rdom]
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
             [kugelmass.pages :as pages]
@@ -40,7 +41,7 @@
    [footer]])
 
 (defn- render []
-  (reagent.dom/render [site] (js/document.getElementById "app")))
+  (rdom/render [site] (js/document.getElementById "app")))
 
 (defn- load-page [page]
   (set! page-state (pages/get-page page))

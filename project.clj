@@ -18,7 +18,7 @@
                  [org.clojure/tools.namespace "1.0.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.6.1"]
-                 [reagent "0.10.0"]
+                 [reagent "1.0.0-alpha1"]
                  [clj-commons/secretary "1.2.4"]]
 
   :plugins [[lein-cljsbuild "1.1.8"]
