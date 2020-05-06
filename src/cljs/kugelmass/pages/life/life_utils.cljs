@@ -43,17 +43,15 @@
      (compute-index (:x coords) (incy (:y coords)) w)
      (compute-index (incx (:x coords)) (incy (:y coords)) w)]))
 
-;; memoize neighbours
-(def memo-neighbours (memoize neighbours))
-
 ;; get alive neighbours count
 (defn- count-alive-neighbours [n board]
-  (reduce
-   #(if (nth (:board board) %2)
-      (inc %1)
-      %1)
-   0
-   (memo-neighbours n (:w board) (:h board))))
+  (let [{w :w h :h board :board} board]
+    (reduce
+     #(if (nth board %2)
+        (inc %1)
+        %1)
+     0
+     (neighbours n w h))))
 
 ;; compute next generation of board
 (defn compute-next-gen [board]
