@@ -63,7 +63,7 @@
                 "There is more stupidity than hydrogen in the universe, and it has a longer shelf life."
                 "Tobacco is my favorite vegetable."}))
 
-(defn- make-quotes [quoter]
+(defn- make-quotes [quotes]
   (let [quotes (partition 2 quotes)]
     (reduce
      #(concat %1 (for [quote (last %2)]
