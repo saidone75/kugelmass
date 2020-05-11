@@ -7,3 +7,8 @@ Mostly by accident, home page lately put legs and became a "playable" version of
 ![saidone.org](https://i.postimg.cc/BvCSfgNw/kugelmass.png "saidone.org")
 
 Built upon [Chestnut](https://github.com/plexus/chestnut)
+
+## License
+Copyright (c) 2020 Saidone
+
+Distributed under the MIT License
