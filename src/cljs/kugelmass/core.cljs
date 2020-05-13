@@ -62,5 +62,5 @@
 (swap! app-state assoc :tagline (taglines/get-tagline))
 (swap! app-state assoc :quote (quotes/get-quote))
 
-(js/setInterval #(swap! app-state assoc :tagline (taglines/get-tagline)) (+ 8000 (rand-int 4000)))
-(js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 12000 (rand-int 8000)))
+(js/setInterval #(swap! app-state assoc :tagline (taglines/get-tagline)) (+ 10000 (rand-int 5000)))
+(js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 20000 (rand-int 5000)))
