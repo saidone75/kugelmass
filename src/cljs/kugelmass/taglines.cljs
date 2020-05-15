@@ -1,6 +1,7 @@
 (ns kugelmass.taglines)
 
-(def taglines ["size DOES matter"
+(def taglines ["call me maybe"
+               "size DOES matter"
                "need we say more?"
                "fit to feel groovy"
                "the silly-awakener"
