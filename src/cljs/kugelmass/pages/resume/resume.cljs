@@ -14,8 +14,7 @@
     " "
     [:a {:href "https://www.linkedin.com/in/saidone/"} [:img.logo {:src "/images/linkedin.svg" :alt "LinkedIn"}]] [:br] [:br]
     "Marco Marini" [:br]
-    "Viale delle Fontanelle 6" [:br]
-    "37047 San Bonifacio VR" [:br]
+    "La Spezia" [:br]
     "Italy"]
    [:h1 "Summary"]
    [:p
@@ -24,9 +23,8 @@
    [:b "Development"]
    [:ul
     [:li "Clojure"]
-    [:li "Java - " [:em "full stack"]]
+    [:li "Java"]
     [:li "C ANSI"]
-    [:li "PHP"]
     [:li "Assembly - " [:em "GAS (x86), NASM (x86), ASM-One (68K), Mikro Assembler (6502), ZASM (Z80)"]]
     [:li "BASH, sed and AWK"]]
    [:b "Consultancy"]
