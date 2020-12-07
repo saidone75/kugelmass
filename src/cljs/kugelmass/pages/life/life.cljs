@@ -109,8 +109,7 @@
     (cond
       (= 32 event.keyCode) (swap! state assoc :start (not (:start @state)))
       (= 82 event.keyCode) (randomize-board)
-      (= 67 event.keyCode) (do (clear-board)
-                               (swap! state assoc :start false))
+      (= 67 event.keyCode) (clear-board)
       (= 187 event.keyCode) (increase-speed)
       (= 189 event.keyCode) (decrease-speed))))
 
