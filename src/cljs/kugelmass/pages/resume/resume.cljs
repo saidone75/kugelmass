@@ -6,7 +6,7 @@
    [:p
     [:a {:href "mailto:saidone@saidone.org"} "saidone@saidone.org"]
     " ("
-    [:a {:href "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x97c97241f9be57f1"} "my GPG key here"]
+    [:a {:href "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xa1b1c1fac8a4f66b"} "my GPG key here"]
     ")" [:br] [:br]
     [:a {:href "https://github.com/saidone75"} [:img.logo {:src "/images/github.svg" :alt "GitHub"}]]
     " "
