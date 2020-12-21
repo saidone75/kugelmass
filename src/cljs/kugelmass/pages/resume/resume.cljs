@@ -18,7 +18,7 @@
     "Italy"]
    [:h1 "Summary"]
    [:p
-    "I'm a programmer with ~20 years of experience in software development, software engineering and system administration, mostly dealing with enterprise content management, data transformation and system integration."]
+    "I'm a programmer with 20+ years of experience in software development, software engineering and system administration, mostly dealing with enterprise content management, data transformation and system integration."]
    [:h1 "Skills"]
    [:b "Development"]
    [:ul
