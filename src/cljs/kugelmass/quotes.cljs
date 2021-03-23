@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2021 Saidone
+
 (ns kugelmass.quotes)
 
 (def quotes '("Leonard Brandwein"

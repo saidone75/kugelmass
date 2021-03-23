@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2021 Saidone
+
 (ns kugelmass.taglines)
 
 (def taglines ["call me maybe"

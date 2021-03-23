@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2021 Saidone
+
 (ns kugelmass.pages.resume.resume)
 
 (def resume

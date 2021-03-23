@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2021 Saidone
+
 (ns kugelmass.pages.life.life
   (:require [reagent.core :as r]
             [kugelmass.pages.life.life-utils :as life-utils]))
