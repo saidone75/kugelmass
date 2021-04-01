@@ -22,22 +22,12 @@
 
 ;; get neighbours of a cell
 (defn- neighbours [n w h]
-  (let [[x y] (compute-coords n w)
-        ;; inc x and y with wrapping logic
-        inc-x (mod (inc x) w)
-        dec-x (mod (dec x) w)
-        inc-y (mod (inc y) h)
-        dec-y (mod (dec y) h)]
+  (let [[x y] (compute-coords n w)]
     (map
      #(compute-index % w)
-     [[dec-x dec-y]
-      [x dec-y]
-      [inc-x dec-y]
-      [dec-x y]
-      [inc-x y]
-      [dec-x inc-y]
-      [x inc-y]
-      [inc-x inc-y]])))
+     (drop 1 (for [x [x (mod (inc x) w) (mod (dec x) w)]
+                   y [y (mod (inc y) h) (mod (dec y) h)]]
+               (vector x y))))))
 
 ;; get alive neighbours count
 (defn- count-alive-neighbours [n board]
