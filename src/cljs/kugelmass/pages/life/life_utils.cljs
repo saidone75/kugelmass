@@ -2,7 +2,7 @@
 
 (ns kugelmass.pages.life.life-utils)
 
-;; random boolean 75% false
+;; random boolean ~75% false
 (defn- random-bool []
   (if (> (rand-int 4) 2)
     true
@@ -16,13 +16,9 @@
 (defn- compute-index [[x y] w]
   (+ x (* y w)))
 
-;; calculate grid coords from vector index
-(defn- compute-coords [n w]
-  [(mod n w) (quot n w)])
-
 ;; get neighbours of a cell
 (defn- neighbours [n w h]
-  (let [[x y] (compute-coords n w)]
+  (let [x (mod n w) y (quot n w)]
     (map
      #(compute-index % w)
      (drop 1 (for [x [x (mod (inc x) w) (mod (dec x) w)]
