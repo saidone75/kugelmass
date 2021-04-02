@@ -4,17 +4,17 @@
   :license {:name "MIT"
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
-  :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/clojurescript "1.10.773" :scope "provided"]
+  :dependencies [[org.clojure/clojure "1.10.3"]
+                 [org.clojure/clojurescript "1.10.844" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.324"]
-                 [ring "1.8.2"]
+                 [ring "1.9.2"]
                  [ring/ring-defaults "0.3.2"]
                  [bk/ring-gzip "0.3.0"]
                  [radicalzephyr/ring.middleware.logger "0.6.0"]
                  [clj-logging-config "1.9.12"]
                  [environ "1.2.0"]
                  [com.stuartsierra/component "1.0.0"]
-                 [org.danielsz/system "0.4.5"]
+                 [org.danielsz/system "0.4.7"]
                  [org.clojure/tools.namespace "1.1.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.6.2"]
@@ -101,10 +101,10 @@
   :doo {:build "test"}
 
   :profiles {:dev
-             {:dependencies [[figwheel "0.5.18"]
-                             [figwheel-sidecar "0.5.18"]
-                             [cider/piggieback "0.4.0"]
-                             [cider/cider-nrepl "0.24.0"]
+             {:dependencies [[figwheel "0.5.20"]
+                             [figwheel-sidecar "0.5.20"]
+                             [cider/piggieback "0.5.2"]
+                             [cider/cider-nrepl "0.25.9"]
                              [lein-doo "0.1.11"]
                              [reloaded.repl "0.2.4"]]
 

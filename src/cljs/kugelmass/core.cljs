@@ -30,9 +30,7 @@
 (defn- toolbar []
   [:div.toolbar
    [:a {:href "#/"} "Home"]
-   [:a {:href "#/resume"} "Resume"]
-   [:a {:href "https://github.com/saidone75/kugelmass"} "Sources"]
-   [:a {:href "http://wa-tor.saidone.org"} "Wa-Tor"]])
+   [:a {:href "#/resume"} "Resume"]])
 
 (defn- site []
   [:div
