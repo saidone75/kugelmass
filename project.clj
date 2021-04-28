@@ -7,7 +7,7 @@
   :dependencies [[org.clojure/clojure "1.10.3"]
                  [org.clojure/clojurescript "1.10.844" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.324"]
-                 [ring "1.9.2"]
+                 [ring "1.9.3"]
                  [ring/ring-defaults "0.3.2"]
                  [bk/ring-gzip "0.3.0"]
                  [radicalzephyr/ring.middleware.logger "0.6.0"]
