@@ -8,7 +8,7 @@
                  [org.clojure/clojurescript "1.10.866" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.324"]
                  [ring "1.9.3"]
-                 [ring/ring-defaults "0.3.2"]
+                 [ring/ring-defaults "0.3.3"]
                  [bk/ring-gzip "0.3.0"]
                  [radicalzephyr/ring.middleware.logger "0.6.0"]
                  [clj-logging-config "1.9.12"]
@@ -18,7 +18,7 @@
                  [org.clojure/tools.namespace "1.1.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.6.2"]
-                 [reagent "1.0.0"]
+                 [reagent "1.1.0"]
                  [clj-commons/secretary "1.2.4"]]
 
   :plugins [[lein-cljsbuild "1.1.8"]
