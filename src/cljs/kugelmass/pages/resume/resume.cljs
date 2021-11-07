@@ -24,8 +24,8 @@
    [:h1 "Skills"]
    [:b "Development"]
    [:ul
-    [:li "Clojure"]
     [:li "Java"]
+    [:li "Clojure"]
     [:li "C ANSI"]
     [:li "Assembly - " [:em "GAS (x86), NASM (x86), ASM-One (68K), Mikro Assembler (6502), ZASM (Z80)"]]
     [:li "BASH, sed and AWK"]]
@@ -36,9 +36,11 @@
     [:li "Distributed storage"]]
    [:h1 "Professional Experience"]
    [:ul
+    [:li "Freelance Alfresco Consultant" [:br]
+     "Aug 2017 - Present" [:br]] [:br]
     [:li "Alfresco Consultant" [:br]
      "YOOX NET-A-PORTER GROUP" [:br]
-     "Nov 2016 - Present" [:br]
+     "Nov 2016 - July 2021" [:br]
      "London, United Kingdom"] [:br]
     [:li "Senior IT Security Consultant" [:br]
      "ISGroup" [:br]
