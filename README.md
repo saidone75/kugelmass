@@ -9,6 +9,6 @@ Mostly by accident, home page lately put legs and became a "playable" version of
 Built upon [Chestnut](https://github.com/plexus/chestnut)
 
 ## License
-Copyright (c) 2020 Saidone
+Copyright (c) 2020-2022 Saidone
 
 Distributed under the MIT License
