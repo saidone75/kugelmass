@@ -5,7 +5,7 @@
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
   :dependencies [[org.clojure/clojure "1.10.3"]
-                 [org.clojure/clojurescript "1.10.879" :scope "provided"]
+                 [org.clojure/clojurescript "1.11.4" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.324"]
                  [ring "1.9.5"]
                  [ring/ring-defaults "0.3.3"]
@@ -18,7 +18,7 @@
                  [org.clojure/tools.namespace "1.1.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.6.2"]
-                 [reagent "1.1.0"]
+                 [reagent "1.1.1"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
                  [clj-commons/secretary "1.2.4"]]
