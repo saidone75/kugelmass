@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2022 Saidone
+
 (ns kugelmass.config
   (:require [environ.core :refer [env]]
             [ring.middleware.defaults :refer [wrap-defaults api-defaults]]

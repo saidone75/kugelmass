@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2022 Saidone
+
 (ns kugelmass.test-runner
   (:require
    [doo.runner :refer-macros [doo-tests]]

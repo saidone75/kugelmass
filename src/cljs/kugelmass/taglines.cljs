@@ -1,15 +1,14 @@
-;; Copyright (c) 2020-2021 Saidone
+;; Copyright (c) 2020-2022 Saidone
 
 (ns kugelmass.taglines)
 
-(def taglines ["call me maybe"
-               "silly-awakener"
+(def taglines ["DON'T PANIC"
+               "call me maybe"
                "size DOES matter"
                ;;"need we say more?"
                ;;"fit to feel groovy"
                "divide and overflow"
                "shaken, not stirred"
-               "cut with the billhook"
                "not a flotation device"
                "Little. Green. Better."
                ;;"it's like warm apple pie!"

@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2022 Saidone
+
 (ns kugelmass.common-test
   #? (:cljs (:require-macros [cljs.test :refer (is deftest testing)]))
   (:require [kugelmass.common :as sut]

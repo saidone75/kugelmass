@@ -1,3 +1,5 @@
+;; Copyright (c) 2020-2022 Saidone
+
 (ns kugelmass.core
   (:require [reagent.core :as r]
             [reagent.dom :as rdom]

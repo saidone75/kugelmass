@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2021 Saidone
+;; Copyright (c) 2020-2022 Saidone
 
 (ns kugelmass.pages
   (:require [kugelmass.pages.life.life :as life]

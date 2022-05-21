@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2021 Saidone
+;; Copyright (c) 2020-2022 Saidone
 
 (ns kugelmass.pages.resume.resume)
 
@@ -24,10 +24,10 @@
    [:h1 "Skills"]
    [:b "Development"]
    [:ul
-    [:li "Java"]
     [:li "Clojure"]
+    [:li "Java - " [:em "Spring, Spring Boot, Struts, Hibernate, JSF"]]
     [:li "C ANSI"]
-    [:li "Assembly - " [:em "GAS (x86), NASM (x86), ASM-One (68K), Mikro Assembler (6502), ZASM (Z80)"]]
+    [:li "Assembly - " [:em "GAS and NASM (x86), ASM-One (68K), Mikro Assembler (6502), ZASM (Z80)"]]
     [:li "BASH, sed and AWK"]]
    [:b "Consultancy"]
    [:ul
@@ -40,7 +40,7 @@
      "TAI Solutions" [:br]
      "Jan 2022 - Present" [:br]
      "Pisa, Italy"] [:br]
-    [:li "Freelance Alfresco Consultant" [:br]
+    [:li "Freelance Alfresco Developer" [:br]
      "Aug 2017 - Dec 2021" [:br]] [:br]
     [:li "Alfresco Developer" [:br]
      "YOOX NET-A-PORTER GROUP" [:br]
@@ -63,11 +63,11 @@
      "Jul 2008 - Feb 2014" [:br]
      "La Spezia, Italy"] [:br]
     [:li "Software Engineer" [:br]
-     "GSK" [:br]
+     "GlaxoSmithKline" [:br]
      "Aug 2007 - Jun 2008" [:br]
      "Verona, Italy"] [:br]
     [:li "Software Engineer" [:br]
-     "GSK" [:br]
+     "GlaxoSmithKline" [:br]
      "Jan 2006 - Mar 2007" [:br]
      "Verona, Italy"] [:br]
     [:li "Software Engineer" [:br]

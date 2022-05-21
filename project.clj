@@ -5,8 +5,8 @@
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [org.clojure/clojurescript "1.11.4" :scope "provided"]
-                 [com.cognitect/transit-clj "1.0.324"]
+                 [org.clojure/clojurescript "1.11.54" :scope "provided"]
+                 [com.cognitect/transit-clj "1.0.329"]
                  [ring "1.9.5"]
                  [ring/ring-defaults "0.3.3"]
                  [bk/ring-gzip "0.3.0"]
@@ -15,9 +15,9 @@
                  [environ "1.2.0"]
                  [com.stuartsierra/component "1.0.0"]
                  [org.danielsz/system "0.4.7"]
-                 [org.clojure/tools.namespace "1.1.0"]
+                 [org.clojure/tools.namespace "1.3.0"]
                  [clj-time "0.15.2"]
-                 [compojure "1.6.2"]
+                 [compojure "1.7.0"]
                  [reagent "1.1.1"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
