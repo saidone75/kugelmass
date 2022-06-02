@@ -29,6 +29,8 @@
               #{"Beware of bugs in the above code; I have only proved it correct, not tried it."}
               "Timothy Leary"
               #{"You're only as young as the last time you changed your mind."}
+              "Gordon Letwin"
+              #{"One in a million is next Tuesday."}
               "Robert C. Martin"
               #{"Truth can only be found in one place: the code."}
               "Groucho Marx"
