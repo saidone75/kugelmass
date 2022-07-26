@@ -5,7 +5,7 @@
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
   :dependencies [[org.clojure/clojure "1.11.1"]
-                 [org.clojure/clojurescript "1.11.54" :scope "provided"]
+                 [org.clojure/clojurescript "1.11.60" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.329"]
                  [ring "1.9.5"]
                  [ring/ring-defaults "0.3.3"]
