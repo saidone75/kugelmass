@@ -57,6 +57,9 @@
 (secretary/defroute "/resume" []
   (load-page :resume))
 
+(secretary/defroute "/cm" []
+  (load-page :cm))
+
 (let [h (History.)]
   (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
