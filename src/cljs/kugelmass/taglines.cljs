@@ -6,7 +6,6 @@
                "call me maybe"
                "size DOES matter"
                ;;"need we say more?"
-               ;;"fit to feel groovy"
                "divide and overflow"
                "shaken, not stirred"
                "not a flotation device"
@@ -21,7 +20,8 @@
                ;;"abandon hope, all ye who enter here"
                "the only winning move is not to play"
                "the land of the free and the home of the brave"
-               "now she knows why her cat stays away from me! DAMNIT!"])
+               "now she knows why her cat stays away from me! DAMNIT!"
+               "Now they know how many holes it takes to fill the Albert Hall"])
 
 (defn get-tagline []
   (rand-nth taglines))
