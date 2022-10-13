@@ -21,7 +21,8 @@
                  [reagent "1.1.1"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
-                 [clj-commons/secretary "1.2.4"]]
+                 [clj-commons/secretary "1.2.4"]
+                 [org.clojure/data.xml "0.2.0-alpha7"]]
 
   :plugins [[lein-cljsbuild "1.1.8"]
             [lein-environ "1.2.0"]]
