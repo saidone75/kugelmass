@@ -52,17 +52,22 @@
   [:input {:class "cm-button"
            :type "text"
            :value (:asp-prefix @src)
-           :on-change #(swap! src assoc :asp-prefix (-> % .-target .-value))}])
+           :on-change #(swap! src assoc
+                              :asp-prefix (-> % .-target .-value)
+                              :msg "Source regenerated")}])
 
 (defn- prop-input []
   [:input {:class "cm-button"
            :type "text"
            :value (:prop-prefix @src)
-           :on-change #(swap! src assoc :prop-prefix (-> % .-target .-value))}])
+           :on-change #(swap! src assoc
+                              :prop-prefix (-> % .-target .-value)
+                              :msg "Source regenerated")}])
 
 (defn- load-file-content [content]
-  (swap! src assoc :xml-data (xml/parse-str (-> content .-target .-result)))
-  (swap! src assoc :msg "Model generated"))
+  (swap! src assoc
+         :xml-data (xml/parse-str (-> content .-target .-result))
+         :msg "Source generated"))
 
 (defn- process-upload [e]
   (let [reader (js/FileReader.)
@@ -72,7 +77,7 @@
 
 (defn- upload-button []
   [:input
-   {:type "file" :accept ".xml" :on-change process-upload}])
+   {:class "cm-button" :type "file" :accept ".xml" :on-change process-upload}])
 
 (swap! page assoc :content
        (upload-button))
@@ -83,16 +88,21 @@
 (defn- render-line [%]
   [:div {:key (swap! el-keys inc)} %])
 
+(defn- copy-to-clipboard []
+  (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "generated-src")) .-innerText))
+  (swap! src assoc :msg "Copied to clipboard"))
+
 (defn- redraw []
   (gen-src (:xml-data @src))
   (swap! page assoc :content
          [:div
           [:table
-           [:tr
-            [:td {:class "cm-button"} "Aspects prefix:"] [:td (asp-input)]]
-           [:tr
-            [:td {:class "cm-button"} "Properties prefix:"] [:td (prop-input)]]]
-          [:div [:br] (:msg @src) [:br] [:br]]
-          [:div {:class "generated-src"} (map render-line @generated-src)]]))
+           [:tbody
+            [:tr
+             [:td {:class "cm-button"} "Aspects prefix:"] [:td (asp-input)]]
+            [:tr
+             [:td {:class "cm-button"} "Properties prefix:"] [:td (prop-input)]]]]
+          [:div {:class "cm-message"} (:msg @src)]
+          [:div {:id "generated-src" :class "generated-src" :on-click copy-to-clipboard} (map render-line @generated-src)]]))
 
 (add-watch src nil redraw)

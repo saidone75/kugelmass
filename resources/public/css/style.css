@@ -152,6 +152,15 @@ div.generated-src {
     text-align: left;
 }
 
+div.cm-message {
+    color: #f0f0d0;
+    background-color: #566a12;
+    border-radius: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding: 10px;
+}
+
 td.cm-button {
     text-align: left;
     background-color: #f0f0d0;
