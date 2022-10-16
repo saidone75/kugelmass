@@ -41,7 +41,7 @@
      "Jan 2022 - Present" [:br]
      "Pisa, Italy"] [:br]
     [:li "Freelance Alfresco Developer" [:br]
-     "Aug 2017 - Dec 2021" [:br]] [:br]
+     "Aug 2021 - Dec 2021" [:br]] [:br]
     [:li "Alfresco Developer" [:br]
      "YOOX NET-A-PORTER GROUP" [:br]
      "Nov 2016 - July 2021" [:br]
