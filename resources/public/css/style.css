@@ -147,3 +147,21 @@ div.show-modal {
 img.logo {
     width: 32px;
 }
+
+div.generated-src {
+    text-align: left;
+}
+
+td.cm-button {
+    text-align: left;
+    background-color: #f0f0d0;
+}
+
+input.cm-button {
+    text-align: left;
+    background-color: #f0f0d0;
+    color: #566a12;
+    border-color: #566a12;
+    border-radius: 4px;
+    border-width: 1px;
+}
