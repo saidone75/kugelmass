@@ -9,12 +9,13 @@
 
 (defonce page (r/atom {}))
 (defonce state (atom {}))
-(defonce generated-src (atom '()))
-(defonce el-keys (atom 0))
+(defonce src (atom '()))
+(defonce counter (atom 0))
 
 (swap! state assoc :string "public static final String")
 (swap! state assoc :qname "public static final QName")
 
+(swap! state assoc :type-prefix "TYPE_")
 (swap! state assoc :asp-prefix "ASP_")
 (swap! state assoc :prop-prefix "PROP_")
 (swap! state assoc :localname-suffix "_LOCALNAME")
@@ -43,10 +44,11 @@
      (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- gen-src [xml-data]
-  (reset! generated-src
+  (reset! src
           (map str (flatten
                     (concat
                      (map #(get-ns-def %) (get-entities xml-data :namespaces))
+                     (map #(get-entity-def % :type-prefix) (get-entities xml-data :types))
                      (map #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
                      (map #(get-entity-def % :prop-prefix) (flatten (map #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))))))
 
@@ -80,10 +82,10 @@
   page)
 
 (defn- render-line [%]
-  [:div {:key (swap! el-keys inc)} %])
+  [:div {:key (swap! counter inc)} %])
 
 (defn- copy-to-clipboard []
-  (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "generated-src")) .-innerText))
+  (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "src")) .-innerText))
   (swap! state assoc :msg "Copied to clipboard"))
 
 (defn- redraw []
@@ -94,15 +96,17 @@
            [:table {:class "cm-prop-table"}
             [:tbody
              [:tr
-              [:td {:class "cm-prop-table-label"} "Aspects prefix:"] [:td (input :asp-prefix)]
+              [:td {:class "cm-prop-table-label"} "Type prefix:"] [:td (input :type-prefix)]
               [:td {:class "cm-prop-table-label"} "Localname suffix:"] [:td (input :localname-suffix)]
               [:td {:class "cm-prop-table-label"} "URI suffix:"] [:td (input :uri-suffix)]]
              [:tr
-              [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
+              [:td {:class "cm-prop-table-label"} "Aspects prefix:"] [:td (input :asp-prefix)]
               [:td {:class "cm-prop-table-label"} "Qname suffix:"] [:td (input :qname-suffix)]
               [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]]
+             [:tr
+              [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]]
              ]]]
           [:div {:class "cm-message"} (:msg @state)]
-          [:div {:id "generated-src" :class "generated-src" :on-click copy-to-clipboard} (map render-line @generated-src)]]))
+          [:div {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map render-line @src)]]))
 
 (add-watch state nil redraw)
