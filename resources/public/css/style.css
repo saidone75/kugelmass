@@ -152,6 +152,19 @@ div.generated-src {
     text-align: left;
 }
 
+div.cm-prop-table-div {
+    display: flex;
+    justify-content: center;
+}
+
+table.cm-prop-table td {
+}
+
+td.cm-prop-table-label {
+    padding-left: 8px;
+    text-align: right;
+}
+
 div.cm-message {
     color: #f0f0d0;
     background-color: #566a12;

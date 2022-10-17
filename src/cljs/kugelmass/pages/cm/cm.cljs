@@ -8,17 +8,19 @@
             [goog.string.format]))
 
 (defonce page (r/atom {}))
-(defonce src (atom {}))
+(defonce state (atom {}))
 (defonce generated-src (atom '()))
 (defonce el-keys (atom 0))
 
-(swap! src assoc :string "public static final String")
-(swap! src assoc :qname "public static final QName")
+(swap! state assoc :string "public static final String")
+(swap! state assoc :qname "public static final QName")
 
-(swap! src assoc :uri-suffix "_URI")
-(swap! src assoc :prefix-suffix "_PREFIX")
-(swap! src assoc :asp-prefix "ASP_")
-(swap! src assoc :prop-prefix "PROP_")
+(swap! state assoc :asp-prefix "ASP_")
+(swap! state assoc :prop-prefix "PROP_")
+(swap! state assoc :localname-suffix "_LOCALNAME")
+(swap! state assoc :qname-suffix "_QNAME")
+(swap! state assoc :uri-suffix "_URI")
+(swap! state assoc :prefix-suffix "_PREFIX")
 
 (defn- get-entities [xml-data type]
   (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
@@ -26,19 +28,19 @@
 (defn- create-qname [property-name prefix]
   (gstring/format
    "QName.createQName(%s, %s)"
-   (str (s/upper-case (s/replace property-name #":.*$" "")) (:uri-suffix @src))
-   (gstring/format "%s%s_LOCALNAME" (prefix @src) (s/upper-case (s/replace property-name #"^.*:" "")))))
+   (str (s/upper-case (s/replace property-name #":.*$" "")) (:uri-suffix @state))
+   (gstring/format "%s%s%s" (prefix @state) (s/upper-case (s/replace property-name #"^.*:" "")) (:localname-suffix @state))))
 
 (defn- get-ns-def [namespace]
   (list
-   (gstring/format "%s %s%s = \"%s\";" (:string @src) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @src) (:uri (:attrs namespace)))
-   (gstring/format "%s %s%s = \"%s\";" (:string @src) (s/upper-case (:prefix (:attrs namespace))) (:prefix-suffix @src) (:prefix (:attrs namespace)))))
+   (gstring/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
+   (gstring/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
 
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gstring/format "%s %s%s_LOCALNAME = \"%s\";" (:string @src) (prefix @src) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (s/replace (:name (:attrs entity)) #".*:" ""))
-     (gstring/format "%s %s%s_QNAME = %s;" (:qname @src) (prefix @src) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (create-qname (:name (:attrs entity)) prefix)))))
+     (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #".*:" ""))
+     (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- gen-src [xml-data]
   (reset! generated-src
@@ -48,24 +50,16 @@
                      (map #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
                      (map #(get-entity-def % :prop-prefix) (flatten (map #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))))))
 
-(defn- asp-input []
+(defn- input [key]
   [:input {:class "cm-button"
            :type "text"
-           :value (:asp-prefix @src)
-           :on-change #(swap! src assoc
-                              :asp-prefix (-> % .-target .-value)
-                              :msg "Source regenerated")}])
-
-(defn- prop-input []
-  [:input {:class "cm-button"
-           :type "text"
-           :value (:prop-prefix @src)
-           :on-change #(swap! src assoc
-                              :prop-prefix (-> % .-target .-value)
+           :value (key @state)
+           :on-change #(swap! state assoc
+                              key (-> % .-target .-value)
                               :msg "Source regenerated")}])
 
 (defn- load-file-content [content]
-  (swap! src assoc
+  (swap! state assoc
          :xml-data (xml/parse-str (-> content .-target .-result))
          :msg "Source generated"))
 
@@ -90,19 +84,25 @@
 
 (defn- copy-to-clipboard []
   (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "generated-src")) .-innerText))
-  (swap! src assoc :msg "Copied to clipboard"))
+  (swap! state assoc :msg "Copied to clipboard"))
 
 (defn- redraw []
-  (gen-src (:xml-data @src))
+  (gen-src (:xml-data @state))
   (swap! page assoc :content
          [:div
-          [:table
-           [:tbody
-            [:tr
-             [:td {:class "cm-button"} "Aspects prefix:"] [:td (asp-input)]]
-            [:tr
-             [:td {:class "cm-button"} "Properties prefix:"] [:td (prop-input)]]]]
-          [:div {:class "cm-message"} (:msg @src)]
+          [:div {:class "cm-prop-table-div"}
+           [:table {:class "cm-prop-table"}
+            [:tbody
+             [:tr
+              [:td {:class "cm-prop-table-label"} "Aspects prefix:"] [:td (input :asp-prefix)]
+              [:td {:class "cm-prop-table-label"} "Localname suffix:"] [:td (input :localname-suffix)]
+              [:td {:class "cm-prop-table-label"} "URI suffix:"] [:td (input :uri-suffix)]]
+             [:tr
+              [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
+              [:td {:class "cm-prop-table-label"} "Qname suffix:"] [:td (input :qname-suffix)]
+              [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]]
+             ]]]
+          [:div {:class "cm-message"} (:msg @state)]
           [:div {:id "generated-src" :class "generated-src" :on-click copy-to-clipboard} (map render-line @generated-src)]]))
 
-(add-watch src nil redraw)
+(add-watch state nil redraw)
