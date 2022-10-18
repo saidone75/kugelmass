@@ -5,7 +5,8 @@
             [clojure.data.xml :as xml]
             [clojure.string :as s]
             [goog.string :as gstring]
-            [goog.string.format]))
+            [goog.string.format]
+            [highlight.js :as hljs]))
 
 (defonce page (r/atom {}))
 (defonce state (atom {}))
@@ -75,14 +76,8 @@
   [:input
    {:class "cm-button" :type "file" :accept ".xml" :on-change process-upload}])
 
-(swap! page assoc :content
-       (upload-button))
-
-(defn content []
-  page)
-
 (defn- render-line [%]
-  [:div {:key (swap! counter inc)} %])
+  (str % "\n"))
 
 (defn- copy-to-clipboard []
   (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "src")) .-innerText))
@@ -107,6 +102,19 @@
               [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]]
              ]]]
           [:div {:class "cm-message"} (:msg @state)]
-          [:div {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map render-line @src)]]))
+          [:div {:class "cm-src"} [:code {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map render-line @src)]]]))
 
 (add-watch state nil redraw)
+
+(swap! page assoc :content
+       (upload-button))
+
+(defn content []
+  page)
+
+(defn- keydown-handler [event]
+  (let [key-code (aget event "keyCode")]
+    (cond
+      (= 72 key-code) (hljs/highlightElement (.. js/document (getElementById "src"))))))
+
+(-> js/document (.addEventListener "keydown" keydown-handler))

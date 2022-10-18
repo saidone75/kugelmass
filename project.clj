@@ -21,6 +21,7 @@
                  [reagent "1.1.1"]
                  [cljsjs/react "17.0.2-0"]
                  [cljsjs/react-dom "17.0.2-0"]
+                 [cljsjs/highlight "11.5.1-0"]
                  [clj-commons/secretary "1.2.4"]
                  [org.clojure/data.xml "0.2.0-alpha7"]]
 
