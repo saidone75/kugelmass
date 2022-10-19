@@ -98,7 +98,7 @@
               [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]]
              ]]]
           [:div {:class "cm-message"} (:msg @state)]
-          [:div {:class "cm-src"} [:code {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map #(str % "\n"))]]]))
+          [:div {:class "cm-src"} [:code {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map #(str % "\n") @src)]]]))
 
 (add-watch state nil redraw)
 
