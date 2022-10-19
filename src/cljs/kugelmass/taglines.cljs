@@ -19,7 +19,7 @@
                ;;"a likely place - and probably true"
                ;;"abandon hope, all ye who enter here"
                "the only winning move is not to play"
-               "the land of the free and the home of the brave"
+               ;;"the land of the free and the home of the brave"
                "now she knows why her cat stays away from me! DAMNIT!"
                "Now they know how many holes it takes to fill the Albert Hall"])
 
