@@ -22,9 +22,6 @@
 (swap! state assoc :uri-suffix "_URI")
 (swap! state assoc :prefix-suffix "_PREFIX")
 
-(defn- get-entities [xml-data type]
-  (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
-
 (defn- create-qname [property-name prefix]
   (gstring/format
    "QName.createQName(%s, %s)"
@@ -41,6 +38,9 @@
     (list
      (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #".*:" ""))
      (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
+
+(defn- get-entities [xml-data type]
+  (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
 
 (defn- gen-src [xml-data]
   (reset! src
