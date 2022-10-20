@@ -10,7 +10,6 @@
 (defonce page (r/atom {}))
 (defonce state (atom {}))
 (defonce src (atom '()))
-(defonce counter (atom 0))
 
 (swap! state assoc :string "public static final String")
 (swap! state assoc :qname "public static final QName")
