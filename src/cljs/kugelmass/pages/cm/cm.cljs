@@ -22,6 +22,9 @@
 (swap! state assoc :uri-suffix "_URI")
 (swap! state assoc :prefix-suffix "_PREFIX")
 
+(defn- replace-camel-case [name]
+  name)
+
 (defn- create-qname [property-name prefix]
   (gstring/format
    "QName.createQName(%s, %s)"
@@ -94,8 +97,8 @@
               [:td {:class "cm-prop-table-label"} "Qname suffix:"] [:td (input :qname-suffix)]
               [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]]
              [:tr
-              [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]]
-             ]]]
+              [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
+              [:td {:class "cm-prop-table-label"} "Camel case replacement:"] [:td (input :camelcase-replacement)]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src"} [:code {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map #(str % "\n") @src)]]]))
 
