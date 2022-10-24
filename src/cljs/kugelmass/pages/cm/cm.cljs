@@ -21,15 +21,17 @@
 (swap! state assoc :qname-suffix "_QNAME")
 (swap! state assoc :uri-suffix "_URI")
 (swap! state assoc :prefix-suffix "_PREFIX")
+(swap! state assoc :camelcase-separator "_")
 
-(defn- replace-camel-case [name]
-  name)
+(defn- fix-name [name]
+  (let [name (s/replace name #".*:" "")]
+    (s/upper-case (s/replace name #"([a-z])([A-Z])" (str "$1" (:camelcase-separator @state) "$2")))))
 
 (defn- create-qname [property-name prefix]
   (gstring/format
    "QName.createQName(%s, %s)"
-   (str (s/upper-case (s/replace property-name #":.*$" "")) (:uri-suffix @state))
-   (gstring/format "%s%s%s" (prefix @state) (s/upper-case (s/replace property-name #"^.*:" "")) (:localname-suffix @state))))
+   (str (fix-name property-name) (:uri-suffix @state))
+   (gstring/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
 (defn- get-ns-def [namespace]
   (list
@@ -39,8 +41,8 @@
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #".*:" ""))
-     (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (s/upper-case (s/replace (:name (:attrs entity)) #".*:" "")) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
+     (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (fix-name (:name (:attrs entity))))
+     (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
   (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
@@ -98,7 +100,7 @@
               [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]]
              [:tr
               [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
-              [:td {:class "cm-prop-table-label"} "Camel case replacement:"] [:td (input :camelcase-replacement)]]]]]
+              [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src"} [:code {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map #(str % "\n") @src)]]]))
 
