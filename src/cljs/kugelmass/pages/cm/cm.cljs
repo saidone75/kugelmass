@@ -30,7 +30,7 @@
 (defn- create-qname [property-name prefix]
   (gstring/format
    "QName.createQName(%s, %s)"
-   (str (fix-name property-name) (:uri-suffix @state))
+   (str (fix-name (s/replace property-name #":.*$" "")) (:uri-suffix @state))
    (gstring/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
 (defn- get-ns-def [namespace]
