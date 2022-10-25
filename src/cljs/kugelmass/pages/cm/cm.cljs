@@ -41,7 +41,7 @@
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (fix-name (:name (:attrs entity))))
+     (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
      (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
