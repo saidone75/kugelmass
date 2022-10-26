@@ -4,7 +4,7 @@
   (:require [reagent.core :as r]
             [clojure.data.xml :as xml]
             [clojure.string :as s]
-            [goog.string :as gstring]
+            [goog.string :as gs]
             [goog.string.format]))
 
 (defonce page (r/atom {}))
@@ -28,33 +28,31 @@
     (s/upper-case (s/replace name #"([a-z])([A-Z])" (str "$1" (:camelcase-separator @state) "$2")))))
 
 (defn- create-qname [property-name prefix]
-  (gstring/format
+  (gs/format
    "QName.createQName(%s, %s)"
    (str (fix-name (s/replace property-name #":.*$" "")) (:uri-suffix @state))
-   (gstring/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
+   (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
 (defn- get-ns-def [namespace]
   (list
-   (gstring/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
-   (gstring/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
+   (gs/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
+   (gs/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
 
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gstring/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
-     (gstring/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
+     (gs/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
+     (gs/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
   (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
 
 (defn- gen-src [xml-data]
   (reset! src
-          (map str (flatten
-                    (concat
-                     (map #(get-ns-def %) (get-entities xml-data :namespaces))
-                     (map #(get-entity-def % :type-prefix) (get-entities xml-data :types))
-                     (map #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
-                     (map #(get-entity-def % :prop-prefix) (flatten (map #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))))))
+          (map str (concat (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
+                           (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
+                           (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
+                           (mapcat #(get-entity-def % :prop-prefix) (mapcat #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))))
 
 (defn- input [key]
   [:input {:class "cm-button"
@@ -102,7 +100,7 @@
               [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
               [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]]]]]
           [:div {:class "cm-message"} (:msg @state)]
-          [:div {:class "cm-src"} [:code {:id "src" :class "cm-src" :on-click copy-to-clipboard} (map #(str % "\n") @src)]]]))
+          [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
 
 (add-watch state nil redraw)
 

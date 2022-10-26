@@ -11,6 +11,8 @@
             [goog.history.EventType :as EventType])
   (:import goog.History))
 
+(defn version [] "0.2.3.3")
+
 (enable-console-print!)
 
 (defonce app-state (r/atom {}))
@@ -70,5 +72,4 @@
 (js/setInterval #(swap! app-state assoc :tagline (taglines/get-tagline)) (+ 10000 (rand-int 5000)))
 (js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 20000 (rand-int 5000)))
 
-(defn version [] "0.2.3.2")
 (aset js/window "version" kugelmass.core/version)
