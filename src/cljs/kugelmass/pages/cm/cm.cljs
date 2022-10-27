@@ -11,8 +11,9 @@
 (defonce state (atom {}))
 (defonce src (atom '()))
 
-(swap! state assoc :string "public static final String")
-(swap! state assoc :qname "public static final QName")
+(swap! state assoc :string "String")
+(swap! state assoc :qname "QName")
+(swap! state assoc :modifiers "public static final")
 
 (swap! state assoc :type-prefix "TYPE_")
 (swap! state assoc :asp-prefix "ASP_")
@@ -35,14 +36,14 @@
 
 (defn- get-ns-def [namespace]
   (list
-   (gs/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
-   (gs/format "%s %s%s = \"%s\";" (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
+   (gs/format "%s %s %s%s = \"%s\";" (:modifiers @state) (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
+   (gs/format "%s %s %s%s = \"%s\";" (:modifiers @state) (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
 
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gs/format "%s %s%s%s = \"%s\";" (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
-     (gs/format "%s %s%s%s = %s;" (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
+     (gs/format "%s %s %s%s%s = \"%s\";" (:modifiers @state) (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
+     (gs/format "%s %s %s%s%s = %s;" (:modifiers @state) (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
   (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
@@ -98,7 +99,8 @@
               [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]]
              [:tr
               [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
-              [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]]]]]
+              [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]
+              [:td {:class "cm-prop-table-label"} "Modifiers:"] [:td (input :modifiers)]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
 
