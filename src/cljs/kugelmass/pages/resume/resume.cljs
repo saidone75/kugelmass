@@ -20,20 +20,15 @@
     "Italy"]
    [:h1 "Summary"]
    [:p
-    "I'm a programmer with 20+ years of experience in software development, software engineering and system administration, mostly dealing with enterprise content management, data transformation and system integration."]
+    "I'm a programmer with 20+ years of experience in software development, mostly dealing with enterprise content management, data transformation and system integration."]
    [:h1 "Skills"]
    [:b "Development"]
    [:ul
-    [:li "Clojure"]
-    [:li "Java - " [:em "Spring, Spring Boot, Struts, Hibernate, JSF"]]
-    [:li "C ANSI"]
-    [:li "Assembly - " [:em "GAS and NASM (x86), ASM-One (68K), Mikro Assembler (6502), ZASM (Z80)"]]
-    [:li "BASH, sed and AWK"]]
+    [:li [:a {:href "https://clojure.org"} "Clojure"]]
+    [:li [:a {:href "https://spring.io/projects/spring-boot"} "Spring Boot"]]]
    [:b "Consultancy"]
    [:ul
-    [:li "ECM/CMS - " [:em "Alfresco, Nuxeo"]]
-    [:li "Application servers"]
-    [:li "Distributed storage"]]
+    [:li [:a {:href "https://www.alfresco.com"} "Alfresco"]]]
    [:h1 "Professional Experience"]
    [:ul
     [:li "Alfresco Developer" [:br]
