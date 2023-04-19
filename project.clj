@@ -18,9 +18,9 @@
                  [org.clojure/tools.namespace "1.3.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.7.0"]
-                 [reagent "1.1.1"]
-                 [cljsjs/react "17.0.2-0"]
-                 [cljsjs/react-dom "17.0.2-0"]
+                 [reagent "1.2.0"]
+                 [cljsjs/react "18.2.0-1"]
+                 [cljsjs/react-dom "18.2.0-1"]
                  [clj-commons/secretary "1.2.4"]
                  [org.clojure/data.xml "0.2.0-alpha7"]]
 
