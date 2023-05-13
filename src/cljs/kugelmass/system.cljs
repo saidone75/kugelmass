@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2022 Saidone
+;; Copyright (c) 2020-2023 Saidone
 
 (ns kugelmass.system
   (:require [com.stuartsierra.component :as component]

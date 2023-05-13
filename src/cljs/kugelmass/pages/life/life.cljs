@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2022 Saidone
+;; Copyright (c) 2020-2023 Saidone
 
 (ns kugelmass.pages.life.life
   (:require [reagent.core :as r]
