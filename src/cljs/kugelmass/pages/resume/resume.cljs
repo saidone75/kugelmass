@@ -15,20 +15,20 @@
     [:a {:href "https://twitter.com/saidone"} [:img.logo {:src "/images/twitter.svg" :alt "Twitter"}]]
     " "
     [:a {:href "https://www.linkedin.com/in/saidone/"} [:img.logo {:src "/images/linkedin.svg" :alt "LinkedIn"}]] [:br] [:br]
-    "Marco Marini" [:br]
+    "Marco Giovanni Marini" [:br]
     "La Spezia" [:br]
     "Italy"]
    [:h1 "Summary"]
    [:p
     "I'm a programmer with 20+ years of experience in software development, mostly dealing with enterprise content management, data transformation and system integration."]
    [:h1 "Skills"]
-   [:b "Development"]
    [:ul
     [:li [:a {:href "https://clojure.org"} "Clojure"]]
-    [:li [:a {:href "https://spring.io/projects/spring-boot"} "Spring Boot"]]]
-   [:b "Consultancy"]
-   [:ul
+    [:li [:a {:href "https://spring.io/projects/spring-boot"} "Spring Boot"]]
     [:li [:a {:href "https://www.alfresco.com"} "Alfresco"]]]
+   [:h1 "Certifications"]
+   [:ul
+    [:li "Alfresco Content Services Certified Engineer"]]
    [:h1 "Professional Experience"]
    [:ul
     [:li "Alfresco Developer" [:br]
@@ -76,10 +76,7 @@
     [:li "Software Engineer" [:br]
      "Fantasma" [:br]
      "Jul 2000 - Dec 2002" [:br]
-     "San Bonifacio, Italy"]]
-   [:h1 "Certifications"]
-   [:ul
-    [:li "Alfresco Certified Engineer"]]])
+     "San Bonifacio, Italy"]]])
 
 (defn content []
   (atom {:content resume}))
