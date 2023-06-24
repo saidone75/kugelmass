@@ -61,6 +61,8 @@
               #{"Quand il s’agit d’argent, tout le monde est de la même religion."
                 "Le mieux est l'ennemi du bien."
                 "Où est l'amitié est la patrie."}
+              "Niklaus Wirth"
+              #{"Software gets slower faster than hardware gets faster."}
               "Frank Zappa"
               #{"Politics is the entertainment branch of industry."
                 "There are three things that smell of fish. One of them is fish. The other two are growing on you!"
