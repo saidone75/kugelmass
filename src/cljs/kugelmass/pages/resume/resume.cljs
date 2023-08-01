@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2022 Saidone
+;; Copyright (c) 2020-2023 Saidone
 
 (ns kugelmass.pages.resume.resume)
 
@@ -28,7 +28,8 @@
     [:li [:a {:href "https://www.alfresco.com"} "Alfresco"]]]
    [:h1 "Certifications"]
    [:ul
-    [:li "Alfresco Content Services Certified Engineer"]]
+    [:li "Alfresco Content Services Certified Engineer (2023)"]
+    [:li "Alfresco Certified Engineer (2012)"]]
    [:h1 "Professional Experience"]
    [:ul
     [:li "Alfresco Developer" [:br]
