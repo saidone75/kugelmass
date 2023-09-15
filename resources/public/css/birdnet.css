@@ -1,0 +1,22 @@
+body {
+    font-family: monospace;
+    color: #303030;
+    background-color: #f0f0d0;
+}
+
+div.content {
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.gif {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+div.header {
+    font-size: xx-large;
+}

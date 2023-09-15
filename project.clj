@@ -1,4 +1,4 @@
-(defproject kugelmass "0.2.3.6"
+(defproject kugelmass "0.2.3.7"
   :description "Source code for my web page saidone.org"
   :url "http://saidone.org"
   :license {:name "MIT"
@@ -22,7 +22,8 @@
                  [cljsjs/react "18.2.0-1"]
                  [cljsjs/react-dom "18.2.0-1"]
                  [clj-commons/secretary "1.2.4"]
-                 [org.clojure/data.xml "0.2.0-alpha7"]]
+                 [org.clojure/data.xml "0.2.0-alpha7"]
+                 [hiccup "2.0.0-RC1"]]
 
   :plugins [[lein-cljsbuild "1.1.8"]
             [lein-environ "1.2.0"]]
