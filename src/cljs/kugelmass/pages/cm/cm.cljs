@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2022 Saidone
+;; Copyright (c) 2020-2023 Saidone
 
 (ns kugelmass.pages.cm.cm
   (:require [reagent.core :as r]
@@ -13,6 +13,7 @@
 
 (swap! state assoc :string "String")
 (swap! state assoc :qname "QName")
+(swap! state assoc :string-or-qname false)
 (swap! state assoc :modifiers "public static final")
 
 (swap! state assoc :type-prefix "TYPE_")
@@ -34,6 +35,14 @@
    (str (fix-name (s/replace property-name #":.*$" "")) (:uri-suffix @state))
    (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
+(defn- create-string [property-name prefix]
+  (gs/format
+   "String.format(\"%s:%s\", %s, %s)"
+   "%s"
+   "%s"
+   (str (fix-name (s/replace property-name #":.*$" "")) (:prefix-suffix @state))
+   (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
+
 (defn- get-ns-def [namespace]
   (list
    (gs/format "%s %s %s%s = \"%s\";" (:modifiers @state) (:string @state) (s/upper-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
@@ -43,7 +52,7 @@
   (if-not (nil? (:attrs entity))
     (list
      (gs/format "%s %s %s%s%s = \"%s\";" (:modifiers @state) (:string @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
-     (gs/format "%s %s %s%s%s = %s;" (:modifiers @state) (:qname @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
+     (gs/format "%s %s %s%s%s = %s;" (:modifiers @state) (if (:string-or-qname @state) (:string @state) (:qname @state)) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) ((if (:string-or-qname @state) create-string create-qname) (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
   (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
@@ -61,6 +70,14 @@
            :value (key @state)
            :on-change #(swap! state assoc
                               key (-> % .-target .-value)
+                              :msg "Source regenerated")}])
+
+(defn- checkbox [key]
+  [:input {:class "cm-button"
+           :type "checkbox"
+           :value (key @state)
+           :on-change #(swap! state assoc
+                              key (-> % .-target .-checked)
                               :msg "Source regenerated")}])
 
 (defn- load-file-content [content]
@@ -88,7 +105,7 @@
          [:div
           [:div {:class "cm-prop-table-div"}
            [:table {:class "cm-prop-table"}
-            [:tbody
+            [:tbody            
              [:tr
               [:td {:class "cm-prop-table-label"} "Type prefix:"] [:td (input :type-prefix)]
               [:td {:class "cm-prop-table-label"} "Localname suffix:"] [:td (input :localname-suffix)]
@@ -100,7 +117,11 @@
              [:tr
               [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
               [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]
-              [:td {:class "cm-prop-table-label"} "Modifiers:"] [:td (input :modifiers)]]]]]
+              [:td {:class "cm-prop-table-label"} "Modifiers:"] [:td (input :modifiers)]]]
+            [:tr
+             [:td {:class "cm-prop-table-label"} "String or Qname:"] [:td (checkbox :string-or-qname)]
+             [:td]
+             [:td]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
 
