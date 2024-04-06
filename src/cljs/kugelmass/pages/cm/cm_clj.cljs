@@ -29,7 +29,7 @@
 (defn- create-qname [property-name prefix]
   (gs/format
    "(format \"%%s:%%s\" %s %s)"
-   (str (fix-name (s/replace property-name #":.*$" "")) (:uri-suffix @state))
+   (str (fix-name (s/replace property-name #":.*$" "")) (:prefix-suffix @state))
    (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
 (defn- get-ns-def [namespace]
