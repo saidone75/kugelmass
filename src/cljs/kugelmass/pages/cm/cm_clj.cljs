@@ -22,6 +22,14 @@
 (swap! state assoc :prefix-suffix "-prefix")
 (swap! state assoc :camelcase-separator "-")
 
+(defn kebab-case
+  "Turn a camelCase string into kebab-case."
+  [s]
+  (->> s
+       (#(s/split % #"(?<=[a-z])(?=[A-Z])"))
+       (map #(s/lower-case %))
+       (s/join "-")))
+
 (defn- fix-name [name]
   (let [name (s/replace name #".*:" "")]
     (s/lower-case (s/replace name #"([a-z])([A-Z])" (str "$1" (:camelcase-separator @state) "$2")))))
@@ -40,7 +48,7 @@
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gs/format "(%s %s%s%s \"%s\")" (:def @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (s/replace (:name (:attrs entity)) #"^.*:" ""))
+     (gs/format "(%s %s%s%s \"%s\")" (:def @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (kebab-case(s/replace (:name (:attrs entity)) #"^.*:" "")))
      (gs/format "(%s %s%s%s %s)" (:def @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
