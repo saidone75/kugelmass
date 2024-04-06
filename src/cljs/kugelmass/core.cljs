@@ -62,6 +62,9 @@
 (secretary/defroute "/cm" []
   (load-page :cm))
 
+(secretary/defroute "/cm-clj" []
+  (load-page :cm-clj))
+
 (let [h (History.)]
   (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
