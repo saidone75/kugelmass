@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2022 Saidone
+;; Copyright (c) 2020-2024 Saidone
 
 (ns kugelmass.core-test
   (:require-macros [cljs.test :refer (is deftest testing)])

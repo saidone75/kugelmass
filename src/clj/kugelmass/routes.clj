@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2023 Saidone
+;; Copyright (c) 2020-2024 Saidone
 
 (ns kugelmass.routes
   (:require [clojure.java.io :as io]
