@@ -12,9 +12,11 @@
 (defonce src (atom '()))
 
 (swap! state assoc :def "def")
+(swap! state assoc :keywordize)
 
 (swap! state assoc :type-prefix "type-")
 (swap! state assoc :asp-prefix "asp-")
+(swap! state assoc :assoc-prefix "assoc-")
 (swap! state assoc :prop-prefix "prop-")
 (swap! state assoc :localname-suffix "-localname")
 (swap! state assoc :qname-suffix "-qname")
@@ -36,7 +38,9 @@
 
 (defn- create-qname [property-name prefix]
   (gs/format
-   "(keyword (format \"%%s:%%s\" %s %s))"
+   (if (:keywordize @state)
+     "(keyword (format \"%%s:%%s\" %s %s))"
+     "(format \"%%s:%%s\" %s %s)")
    (str (fix-name (s/replace property-name #":.*$" "")) (:prefix-suffix @state))
    (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
@@ -59,6 +63,7 @@
           (map str (concat (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
                            (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
                            (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
+                           (mapcat #(get-entity-def % :assoc-prefix) (mapcat #(get-entities % :associations) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))
                            (mapcat #(get-entity-def % :prop-prefix) (mapcat #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))))
 
 (defn- input [key]
@@ -106,16 +111,20 @@
              [:tr
               [:td {:class "cm-prop-table-label"} "Type prefix:"] [:td (input :type-prefix)]
               [:td {:class "cm-prop-table-label"} "Localname suffix:"] [:td (input :localname-suffix)]
-              [:td {:class "cm-prop-table-label"} "URI suffix:"] [:td (input :uri-suffix)]]
+              [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]
+              ]
              [:tr
               [:td {:class "cm-prop-table-label"} "Aspects prefix:"] [:td (input :asp-prefix)]
               [:td {:class "cm-prop-table-label"} "Qname suffix:"] [:td (input :qname-suffix)]
-              [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]]
+              [:td]]
              [:tr
-              [:td {:class "cm-prop-table-label"} "Properties prefix:"] [:td (input :prop-prefix)]
-              [:td {:class "cm-prop-table-label"} "camelCase separator:"] [:td (input :camelcase-separator)]
-              [:td]]]
-            ]]
+              [:td {:class "cm-prop-table-label"} "Associations prefix:"] [:td (input :assoc-prefix)]
+              [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]
+              [:td]]
+             [:tr
+              [:td {:class "cm-prop-table-label"} "Keywordize:"] [:td (checkbox :keywordize)]
+              [:td]
+              [:td]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
 
