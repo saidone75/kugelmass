@@ -1,4 +1,4 @@
-(defproject kugelmass "0.3.0"
+(defproject kugelmass "0.3.1"
   :description "Source code for my web page saidone.org"
   :url "http://saidone.org"
   :license {:name "MIT"
