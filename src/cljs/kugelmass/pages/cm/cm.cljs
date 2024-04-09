@@ -116,14 +116,14 @@
              [:tr
               [:td {:class "cm-prop-table-label"} "Aspects prefix:"] [:td (input :asp-prefix)]
               [:td {:class "cm-prop-table-label"} "Qname suffix:"] [:td (input :qname-suffix)]
-              [:td]]
+              [:td {:class "cm-prop-table-label"} "Modifiers:"] [:td (input :modifiers)]]
              [:tr
               [:td {:class "cm-prop-table-label"} "Associations prefix:"] [:td (input :assoc-prefix)]
               [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]
               [:td]]
              [:tr
               [:td {:class "cm-prop-table-label"} "String or Qname:"] [:td (checkbox :string-or-qname)]
-              [:td]
+              e              [:td]
               [:td]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
