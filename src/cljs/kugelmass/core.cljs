@@ -76,3 +76,4 @@
 (js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 20000 (rand-int 5000)))
 
 (aset js/window "version" kugelmass.core/version)
+(aset js/window "quote" kugelmass.quotes/get-quote)
