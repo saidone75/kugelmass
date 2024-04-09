@@ -15,7 +15,7 @@
                  [environ "1.2.0"]
                  [com.stuartsierra/component "1.0.0"]
                  [org.danielsz/system "0.4.8"]
-                 [org.clojure/tools.namespace "1.4.4"]
+                 [org.clojure/tools.namespace "1.5.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.7.0"]
                  [reagent "1.2.0"]
