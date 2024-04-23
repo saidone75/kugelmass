@@ -11,6 +11,8 @@
 (defonce state (atom {}))
 (defonce src (atom '()))
 
+(defonce header "/* generated with https://saidone.org/#/cm */")
+
 (swap! state assoc :string "String")
 (swap! state assoc :qname "QName")
 (swap! state assoc :string-or-qname false)
@@ -60,11 +62,14 @@
 
 (defn- gen-src [xml-data]
   (reset! src
-          (map str (concat (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
-                           (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
-                           (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
-                           (mapcat #(get-entity-def % :assoc-prefix) (mapcat #(get-entities % :associations) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))
-                           (mapcat #(get-entity-def % :prop-prefix) (mapcat #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))))
+          (conj
+           (map str (concat (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
+                            (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
+                            (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
+                            (mapcat #(get-entity-def % :assoc-prefix) (mapcat #(get-entities % :associations) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))
+                            (mapcat #(get-entity-def % :prop-prefix) (mapcat #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))
+           nil
+           header)))
 
 (defn- input [key]
   [:input {:class "cm-button"
@@ -123,7 +128,7 @@
               [:td]]
              [:tr
               [:td {:class "cm-prop-table-label"} "String or Qname:"] [:td (checkbox :string-or-qname)]
-              e              [:td]
+              [:td]
               [:td]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
