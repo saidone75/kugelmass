@@ -12,9 +12,11 @@
 (defonce src (atom '()))
 
 (defonce header ";; generated with https://saidone.org/#/cm-clj")
+(defonce const "^:const")
 
 (swap! state assoc :def "def")
 (swap! state assoc :keywordize)
+(swap! state assoc :constant)
 
 (swap! state assoc :type-prefix "type-")
 (swap! state assoc :asp-prefix "asp-")
@@ -46,16 +48,21 @@
    (str (fix-name (s/replace property-name #":.*$" "")) (:prefix-suffix @state))
    (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
+(defn- get-def []
+  (if (:constant @state)
+    (gs/format "%s %s" (:def @state) const)
+    (:def @state)))
+
 (defn- get-ns-def [namespace]
   (list
-   (gs/format "(%s %s%s \"%s\")" (:def @state) (s/lower-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
-   (gs/format "(%s %s%s \"%s\")" (:def @state) (s/lower-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
+   (gs/format "(%s %s%s \"%s\")" (get-def) (s/lower-case (:prefix (:attrs namespace))) (:uri-suffix @state) (:uri (:attrs namespace)))
+   (gs/format "(%s %s%s \"%s\")" (get-def) (s/lower-case (:prefix (:attrs namespace))) (:prefix-suffix @state) (:prefix (:attrs namespace)))))
 
 (defn- get-entity-def [entity prefix]
   (if-not (nil? (:attrs entity))
     (list
-     (gs/format "(%s %s%s%s \"%s\")" (:def @state) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (kebab-case(s/replace (:name (:attrs entity)) #"^.*:" "")))
-     (gs/format "(%s %s%s%s %s)" (:def @state) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
+     (gs/format "(%s %s%s%s \"%s\")" (get-def) (prefix @state) (fix-name (:name (:attrs entity))) (:localname-suffix @state) (kebab-case(s/replace (:name (:attrs entity)) #"^.*:" "")))
+     (gs/format "(%s %s%s%s %s)" (get-def) (prefix @state) (fix-name (:name (:attrs entity))) (:qname-suffix @state) (create-qname (:name (:attrs entity)) prefix)))))
 
 (defn- get-entities [xml-data type]
   (filter #(not (string? %)) (mapcat :content (filter #(= (name type) (last (s/split (:tag %) #"/"))) (:content xml-data)))))
@@ -127,8 +134,8 @@
               [:td {:class "cm-prop-table-label"} "Prefix suffix:"] [:td (input :prefix-suffix)]
               [:td]]
              [:tr
+              [:td {:class "cm-prop-table-label"} "Constant:"] [:td (checkbox :constant)]
               [:td {:class "cm-prop-table-label"} "Keywordize:"] [:td (checkbox :keywordize)]
-              [:td]
               [:td]]]]]
           [:div {:class "cm-message"} (:msg @state)]
           [:div {:class "cm-src" :on-click copy-to-clipboard} [:code {:id "src" :class "cm-src"} (map #(str % "\n") @src)]]]))
