@@ -4,7 +4,7 @@
   :license {:name "MIT"
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
-  :dependencies [[org.clojure/clojure "1.11.2"]
+  :dependencies [[org.clojure/clojure "1.11.3"]
                  [org.clojure/clojurescript "1.11.132" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.333"]
                  [ring "1.10.0"]
