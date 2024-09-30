@@ -11,7 +11,7 @@
             [goog.history.EventType :as EventType])
   (:import goog.History))
 
-(defn version [] "0.3.3")
+(defn version [] "0.3.4")
 
 (enable-console-print!)
 
@@ -77,3 +77,4 @@
 
 (aset js/window "version" kugelmass.core/version)
 (aset js/window "quote" kugelmass.quotes/get-quote)
+(aset js/window "tagline" kugelmass.taglines/get-tagline)
