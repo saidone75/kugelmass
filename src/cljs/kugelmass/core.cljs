@@ -34,6 +34,7 @@
 (defn- toolbar []
   [:div.toolbar
    [:a {:href "#/"} "Home"]
+   [:a {:href "#/tools"} "Tools"]
    [:a {:href "#/resume"} "Resume"]])
 
 (defn- site []
@@ -58,6 +59,9 @@
 
 (secretary/defroute "/resume" []
   (load-page :resume))
+
+(secretary/defroute "/tools" []
+  (load-page :tools))
 
 (secretary/defroute "/cm" []
   (load-page :cm))
