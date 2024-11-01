@@ -5,29 +5,35 @@
             [ajax.core :refer [GET]]))
 
 (def page (r/atom {}))
-(def res (r/atom {}))
-
-(defn draw-page []
-  [:div
-   (:pwd @res)
-   [:br]
-   [:input {:type "button" :value "Generate another"
-            :on-click get-password}]])
-
-(defn- handle-success [response]
-  (.log js/console (str response))
-  (swap! res assoc :pwd (str response))
-  (swap! page assoc :content (draw-page)))
-
-(defn- handle-error [response]
-  (.log js/console (str response)
-        (swap! res assoc :pwd "error")))
+(def state (r/atom {}))
 
 (defn get-password []
   (GET "/random/pwd"
        {:response-format :text
         :handler handle-success
         :error-handler handle-error}))
+
+(defn draw-page []
+  [:div
+   [:div {:id "pwd" :on-click copy-to-clipboard} (:pwd @state)]
+   [:input {:type "button" :value "Generate another"
+            :on-click get-password}]
+   [:div (:msg @state)]])
+
+(defn- copy-to-clipboard []
+  (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "pwd")) .-innerText))
+  (swap! state assoc :msg "Copied to clipboard")
+  (swap! page assoc :content (draw-page)))
+
+(defn- handle-success [response]
+  (.log js/console (str response))
+  (swap! state assoc :pwd (str response))
+  (swap! state assoc :msg "Password generated")
+  (swap! page assoc :content (draw-page)))
+
+(defn- handle-error [response]
+  (swap! state assoc :pwd "error")
+  (swap! page assoc :content (draw-page)))
 
 (get-password)
 
