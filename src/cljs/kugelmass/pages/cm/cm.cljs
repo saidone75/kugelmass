@@ -105,7 +105,7 @@
    "Upload your content model using the button below:"
    [:br]
    [:input
-    {:class "cm-button" :type "file" :accept ".xml" :on-change process-upload}]])
+    {:class "cm-upload" :type "file" :accept ".xml" :on-change process-upload}]])
 
 (upload-button)
 

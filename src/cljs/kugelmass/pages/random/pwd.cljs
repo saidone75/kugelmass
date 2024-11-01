@@ -15,10 +15,10 @@
 
 (defn draw-page []
   [:div
-   [:div {:id "pwd" :on-click copy-to-clipboard} (:pwd @state)]
-   [:input {:type "button" :value "Generate another"
+   [:div {:class "pwd" :id "pwd" :on-click copy-to-clipboard} (:pwd @state)]
+   [:input {:class "pwd-another" :type "button" :value "Generate another"
             :on-click get-password}]
-   [:div (:msg @state)]])
+   [:div {:class "pwd-state"} (:msg @state)]])
 
 (defn- copy-to-clipboard []
   (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "pwd")) .-innerText))

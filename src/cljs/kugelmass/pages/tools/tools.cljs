@@ -8,7 +8,7 @@
    [:li [:a {:href "#/cm"} "CM - Generate Java sources from Alfresco Content Model XML"]]
    [:li [:a {:href "#/cm-clj"} "CM-CLJ - Generate Clojure sources from Alfresco Content Model XML"]]
    [:h1 "Random"]
-   [:li [:a {:href "#/pwd"} "Strong passwords generator"]]
+   [:li [:a {:href "#/pwd"} "Secure password generator"]]
    ])
 
 (defn content []

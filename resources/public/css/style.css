@@ -173,12 +173,20 @@ td.cm-button {
 }
 
 input.cm-button {
-    text-align: left;
-    background-color: #f0f0d0;
+    padding: 10px;
     color: #566a12;
-    border-color: #566a12;
+    background-color: #f0f0d0;
+    border: 1px solid #566a12;
     border-radius: 4px;
-    border-width: 1px;
+}
+
+::file-selector-button {
+    padding: 10px;
+    text-align: left;
+    background-color: #566a12;
+    color: #f0f0d0;
+    border: none;
+    border-radius: 4px;
 }
 
 div.cm-src {
@@ -190,4 +198,22 @@ div.cm-src {
 
 code {
     white-space: pre-wrap;
+}
+
+div.pwd {
+    font-size: 1.4em;
+    padding: 10px
+}
+
+div.pwd-state {
+    padding: 10px
+}
+
+input.pwd-another {
+    padding: 10px;
+    color: #f0f0d0;
+    background-color: #566a12;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
 }
