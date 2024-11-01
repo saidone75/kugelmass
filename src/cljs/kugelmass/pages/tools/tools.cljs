@@ -5,8 +5,10 @@
 (def tools
   [:div.page
    [:h1 "Alfresco"]
-   [:li [:a {:href "#/cm"} "CM - Generate Java sources for Alfresco Content Model XML"]]
-   [:li [:a {:href "#/cm-clj"} "CM-CLJ - Generate Clojure sources for Alfresco Content Model XML"]]
+   [:li [:a {:href "#/cm"} "CM - Generate Java sources from Alfresco Content Model XML"]]
+   [:li [:a {:href "#/cm-clj"} "CM-CLJ - Generate Clojure sources from Alfresco Content Model XML"]]
+   [:h1 "Random"]
+   [:li [:a {:href "#/pwd"} "Strong passwords generator"]]
    ])
 
 (defn content []

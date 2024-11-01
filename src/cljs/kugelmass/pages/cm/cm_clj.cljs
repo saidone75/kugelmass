@@ -106,8 +106,13 @@
     (.readAsText reader file)))
 
 (defn- upload-button []
-  [:input
-   {:class "cm-button" :type "file" :accept ".xml" :on-change process-upload}])
+  [:div
+   "Generate Clojure sources from Alfresco Content Model XML"
+   [:br]
+   "Upload your content model using the button below:"
+   [:br]
+   [:input
+    {:class "cm-button" :type "file" :accept ".xml" :on-change process-upload}]])
 
 (defn- copy-to-clipboard []
   (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "src")) .-innerText))

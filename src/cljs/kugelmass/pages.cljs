@@ -5,7 +5,8 @@
             [kugelmass.pages.resume.resume :as resume]
             [kugelmass.pages.tools.tools :as tools]
             [kugelmass.pages.cm.cm :as cm]
-            [kugelmass.pages.cm.cm-clj :as cm-clj]))
+            [kugelmass.pages.cm.cm-clj :as cm-clj]
+            [kugelmass.pages.random.pwd :as pwd]))
 
 (defn get-page [page]
   (cond
@@ -13,4 +14,5 @@
     (= :resume page) (resume/content)
     (= :tools page) (tools/content)
     (= :cm page) (cm/content)
-    (= :cm-clj page) (cm-clj/content)))
+    (= :cm-clj page) (cm-clj/content)
+    (= :pwd page) (pwd/content)))

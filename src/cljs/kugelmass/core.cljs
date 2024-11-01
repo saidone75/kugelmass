@@ -11,7 +11,7 @@
             [goog.history.EventType :as EventType])
   (:import goog.History))
 
-(defn version [] "0.3.4")
+(defn version [] "0.3.6")
 
 (enable-console-print!)
 
@@ -69,6 +69,9 @@
 (secretary/defroute "/cm-clj" []
   (load-page :cm-clj))
 
+(secretary/defroute "/pwd" []
+  (load-page :pwd))
+
 (let [h (History.)]
   (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
   (doto h (.setEnabled true)))
@@ -82,3 +85,4 @@
 (aset js/window "version" kugelmass.core/version)
 (aset js/window "quote" kugelmass.quotes/get-quote)
 (aset js/window "tagline" kugelmass.taglines/get-tagline)
+(aset js/window "pwd" kugelmass.pages.random.pwd/get-password)
