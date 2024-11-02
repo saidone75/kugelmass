@@ -7,11 +7,28 @@
 (def page (r/atom {}))
 (def state (r/atom {}))
 
+(defn- handle-success [response]
+  (.log js/console (:password response))
+  (swap! state assoc :pwd (:password response))
+  (swap! state assoc :entropy (:entropy response))
+  (swap! state assoc :msg (str "Password generated with " (:entropy response) " of entropy")))
+
+(defn- handle-error [response]
+  (swap! state assoc :pwd "error")
+  (swap! state assoc :entropy nil)
+  (swap! state assoc :msg "Error"))
+
 (defn get-password []
-  (GET "/random/pwd"
-       {:response-format :text
+  (GET "/random/password"
+       {:params {:format :json}
+        :response-format :json
+        :keywords? true
         :handler handle-success
         :error-handler handle-error}))
+
+(defn- copy-to-clipboard []
+  (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "pwd")) .-innerText))
+  (swap! state assoc :msg "Copied to clipboard"))
 
 (defn draw-page []
   [:div
@@ -20,20 +37,7 @@
             :on-click get-password}]
    [:div {:class "pwd-state"} (:msg @state)]])
 
-(defn- copy-to-clipboard []
-  (js/navigator.clipboard.writeText (-> (.. js/document (getElementById "pwd")) .-innerText))
-  (swap! state assoc :msg "Copied to clipboard")
-  (swap! page assoc :content (draw-page)))
-
-(defn- handle-success [response]
-  (.log js/console (str response))
-  (swap! state assoc :pwd (str response))
-  (swap! state assoc :msg "Password generated")
-  (swap! page assoc :content (draw-page)))
-
-(defn- handle-error [response]
-  (swap! state assoc :pwd "error")
-  (swap! page assoc :content (draw-page)))
+(add-watch state :password #(swap! page assoc :content (draw-page)))
 
 (get-password)
 
