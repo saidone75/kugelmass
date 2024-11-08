@@ -80,12 +80,13 @@
                               :msg "Source regenerated")}])
 
 (defn- checkbox [key]
-  [:input {:class "cm-button"
-           :type "checkbox"
-           :value (key @state)
-           :on-change #(swap! state assoc
-                              key (-> % .-target .-checked)
-                              :msg "Source regenerated")}])
+  [:div {:class "checkbox-wrapper"}
+   [:input {:class "cm-checkbox"
+            :type "checkbox"
+            :value (key @state)
+            :on-change #(swap! state assoc
+                               key (-> % .-target .-checked)
+                               :msg "Source regenerated")}]])
 
 (defn- load-file-content [content]
   (swap! state assoc
@@ -99,7 +100,7 @@
     (.readAsText reader file)))
 
 (defn- upload-button []
-  [:div
+  [:div {:class "cm-upload-text"}
    "Generate Java sources from Alfresco Content Model XML"
    [:br]
    "Upload your content model using the button below:"

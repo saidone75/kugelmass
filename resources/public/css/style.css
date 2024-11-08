@@ -172,6 +172,10 @@ td.cm-button {
     background-color: #f0f0d0;
 }
 
+div.cm-upload-text {
+    line-height: 24px;
+}
+
 input.cm-button {
     padding: 10px;
     color: #566a12;
@@ -181,12 +185,70 @@ input.cm-button {
 }
 
 ::file-selector-button {
-    padding: 10px;
+    padding: 12px;
     text-align: left;
     background-color: #566a12;
     color: #f0f0d0;
     border: none;
     border-radius: 4px;
+}
+
+.checkbox-wrapper .cm-checkbox {
+    appearance: none;
+    background-color: #566a12;
+    border-radius: 72px;
+    border-style: none;
+    flex-shrink: 0;
+    height: 20px;
+    margin: 0;
+    position: relative;
+    width: 30px;
+}
+
+.checkbox-wrapper .cm-checkbox::before {
+    bottom: -6px;
+    content: "";
+    left: -6px;
+    position: absolute;
+    right: -6px;
+    top: -6px;
+}
+
+.checkbox-wrapper .cm-checkbox,
+.checkbox-wrapper .cm-checkbox::after {
+    transition: all 100ms ease-out;
+}
+
+.checkbox-wrapper .cm-checkbox::after {
+    background-color: #f0f0d0;
+    border-radius: 50%;
+    content: "";
+    height: 14px;
+    left: 3px;
+    position: absolute;
+    top: 3px;
+    width: 14px;
+}
+
+.checkbox-wrapper input[type=checkbox] {
+    cursor: default;
+}
+
+.checkbox-wrapper .cm-checkbox:checked {
+    background-color: #566a12;
+}
+
+.checkbox-wrapper .cm-checkbox:checked::after {
+    background-color: #f0f0d0;
+    left: 13px;
+}
+
+.checkbox-wrapper :focus:not(.focus-visible) {
+    outline: 0;
+}
+
+.checkbox-wrapper .cm-checkbox:checked:hover {
+    background-color: #566a12;
 }
 
 div.cm-src {
