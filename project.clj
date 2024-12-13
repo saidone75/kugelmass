@@ -1,4 +1,4 @@
-(defproject kugelmass "0.3.8"
+(defproject kugelmass "0.3.9"
   :description "Source code for my web page saidone.org"
   :url "http://saidone.org"
   :license {:name "MIT"
@@ -19,8 +19,8 @@
                  [clj-time "0.15.2"]
                  [compojure "1.7.0"]
                  [reagent "1.2.0"]
-                 [cljsjs/react "18.2.0-1"]
-                 [cljsjs/react-dom "18.2.0-1"]
+                 [cljsjs/react "18.3.1-1"]
+                 [cljsjs/react-dom "18.3.1-1"]
                  [clj-commons/secretary "1.2.4"]
                  [org.clojure/data.xml "0.2.0-alpha7"]
                  [hiccup "2.0.0-RC1"]
