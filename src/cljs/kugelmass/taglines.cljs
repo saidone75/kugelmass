@@ -20,3 +20,6 @@
 
 (defn get-tagline []
   (rand-nth taglines))
+
+(defn get-taglines []
+  (run! js/console.log taglines))
