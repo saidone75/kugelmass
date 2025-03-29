@@ -81,9 +81,17 @@
 
 (def memo-make-quotes (memoize make-quotes))
 
-(defn get-quote []
-  (let [quote (rand-nth (memo-make-quotes quotes))]
-    (str \" (:quote quote) \"
-         (if (nil? (:author quote))
-           nil
-           (str " - " (:author quote))))))
+
+(defn get-quote
+  ([]
+   (get-quote (rand-nth (memo-make-quotes quotes))))
+  ([quote]
+   (str \" (:quote quote) \"
+        (if (nil? (:author quote))
+          nil
+          (str " - " (:author quote))))))
+
+(defn get-quotes []
+  (run! js/console.log (map get-quote (memo-make-quotes quotes))))
+
+

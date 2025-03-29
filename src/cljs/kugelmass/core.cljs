@@ -84,5 +84,6 @@
 
 (aset js/window "version" kugelmass.core/version)
 (aset js/window "quote" kugelmass.quotes/get-quote)
+(aset js/window "quotes" kugelmass.quotes/get-quotes)
 (aset js/window "tagline" kugelmass.taglines/get-tagline)
 (aset js/window "pwd" kugelmass.pages.random.pwd/get-password)
