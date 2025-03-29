@@ -12,6 +12,8 @@
               #{"To iterate is human, to recurse divine."}
               "Edsger W. Dijkstra"
               #{"Simplicity is prerequisite for reliability."}
+              "Francisco Goya"
+              #{"El sueño de la razón produce monstruos."}
               "Bob Gray"
               #{"Writing in C or C++ is like running a chain saw with all the safety guards removed."}
               "Richard Hamming"
