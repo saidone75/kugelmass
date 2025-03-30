@@ -25,7 +25,7 @@
                  [org.clojure/data.xml "0.2.0-alpha7"]
                  [hiccup "2.0.0-RC1"]
                  [cljs-ajax "0.8.4"]
-                 [cheshire "5.10.0"]]
+                 [cheshire "5.13.0"]]
 
   :plugins [[lein-cljsbuild "1.1.8"]
             [lein-environ "1.2.0"]]
