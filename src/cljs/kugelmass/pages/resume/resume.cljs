@@ -65,19 +65,7 @@
     [:li "Software Engineer" [:br]
      [:a {:href "https://www.gsk.com"} "GlaxoSmithKline"] [:br]
      "Jan 2006 - Mar 2007" [:br]
-     "Verona, Italy"] [:br]
-    [:li "Software Engineer" [:br]
-     "Aliante" [:br]
-     "Nov 2004 - Dec 2005" [:br]
-     "Verona, Italy"] [:br]
-    [:li "Software Engineer" [:br]
-     "MeditArs" [:br]
-     "Mar 2003 - Nov 2004" [:br]
-     "Veronella, Italy"] [:br]
-    [:li "Software Engineer" [:br]
-     "Fantasma" [:br]
-     "Jul 2000 - Dec 2002" [:br]
-     "San Bonifacio, Italy"]]])
+     "Verona, Italy"] [:br]]])
 
 (defn content []
   (atom {:content resume}))
