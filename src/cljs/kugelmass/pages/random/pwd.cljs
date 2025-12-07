@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2024 Saidone
+;; Copyright (c) 2020-2025 Saidone
 
 (ns kugelmass.pages.random.pwd
   (:require [reagent.core :as r]
@@ -11,7 +11,7 @@
   (.log js/console (:password response))
   (swap! state assoc :pwd (:password response))
   (swap! state assoc :entropy (:entropy response))
-  (swap! state assoc :msg (str "Password generated with " (:entropy response) " of entropy")))
+  (swap! state assoc :msg (str "Password generated with " (:entropy response) " bits of entropy")))
 
 (defn- handle-error [response]
   (swap! state assoc :pwd "error")

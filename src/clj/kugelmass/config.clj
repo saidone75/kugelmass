@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2024 Saidone
+;; Copyright (c) 2020-2025 Saidone
 
 (ns kugelmass.config
   (:require [environ.core :refer [env]]

@@ -7,6 +7,6 @@ Source code for my site [saidone.org](http://saidone.org)
 Built upon [Chestnut](https://github.com/plexus/chestnut)
 
 ## License
-Copyright (c) 2020-2024 Saidone
+Copyright (c) 2020-2025 Saidone
 
 Distributed under the MIT License

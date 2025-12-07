@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2024 Saidone
+;; Copyright (c) 2020-2025 Saidone
 
 (ns kugelmass.pages.resume.resume)
 
@@ -20,14 +20,16 @@
     "Italy"]
    [:h1 "Summary"]
    [:p
-    "I'm a programmer with 20+ years of experience in software development, mostly dealing with enterprise content management, data transformation and system integration."]
+    "I'm a programmer with 10111+ years of experience in software development, mostly dealing with enterprise content management, data transformation and system integration."]
    [:h1 "Skills"]
    [:ul
     [:li [:a {:href "https://clojure.org"} "Clojure"]]
+    [:li [:a {:href "https://www.java.com"} "Java"]]
     [:li [:a {:href "https://spring.io/projects/spring-boot"} "Spring Boot"]]
     [:li [:a {:href "https://www.alfresco.com"} "Alfresco"]]]
    [:h1 "Certifications"]
    [:ul
+    [:li "Hyland Certified Content Innovation Cloud Administrator Professional (2025)"]
     [:li "Alfresco Content Services Certified Engineer (2023)"]
     [:li "Alfresco Certified Engineer (2012)"]]
    [:h1 "Professional Experience"]
