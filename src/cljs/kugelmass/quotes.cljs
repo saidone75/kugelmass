@@ -2,14 +2,10 @@
 
 (ns kugelmass.quotes)
 
-(def quotes '("Leonard Brandwein"
-              #{"Beware of programmers who carry screwdrivers."}
-              "Peter Clemenza"
+(def quotes '("Peter Clemenza"
               #{"Leave the gun, take the cannoli."}
               "Bernie Cosell"
               #{"Too many people, too few sheep."}
-              "L Peter Deutsch"
-              #{"To iterate is human, to recurse divine."}
               "Edsger W. Dijkstra"
               #{"Simplicity is prerequisite for reliability."}
               "Bob Gray"
@@ -78,7 +74,6 @@
      quotes)))
 
 (def memo-make-quotes (memoize make-quotes))
-
 
 (defn get-quote
   ([]
