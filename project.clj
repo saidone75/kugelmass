@@ -4,8 +4,8 @@
   :license {:name "MIT"
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
-  :dependencies [[org.clojure/clojure "1.12.3"]
-                 [org.clojure/clojurescript "1.12.42" :scope "provided"]
+  :dependencies [[org.clojure/clojure "1.12.4"]
+                 [org.clojure/clojurescript "1.12.134" :scope "provided"]
                  [com.cognitect/transit-clj "1.0.333"]
                  [ring "1.10.0"]
                  [ring/ring-defaults "0.3.4"]
@@ -18,12 +18,12 @@
                  [org.clojure/tools.namespace "1.5.0"]
                  [clj-time "0.15.2"]
                  [compojure "1.7.0"]
-                 [reagent "1.3.0"]
+                 [reagent "2.0.1"]
                  [cljsjs/react "18.3.1-1"]
                  [cljsjs/react-dom "18.3.1-1"]
                  [clj-commons/secretary "1.2.4"]
                  [org.clojure/data.xml "0.2.0-alpha7"]
-                 [hiccup "2.0.0-RC1"]
+                 [hiccup "2.0.0"]
                  [cljs-ajax "0.8.4"]
                  [cheshire "5.13.0"]]
 
