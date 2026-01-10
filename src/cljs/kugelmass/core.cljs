@@ -1,4 +1,4 @@
-;; Copyright (c) 2020-2025 Saidone
+;; Copyright (c) 2020-2026 Saidone
 
 (ns kugelmass.core
   (:require [reagent.core :as r]
@@ -11,7 +11,7 @@
             [goog.history.EventType :as EventType])
   (:import goog.History))
 
-(defn version [] "0.3.14")
+(defn version [] "0.3.15")
 
 (enable-console-print!)
 
