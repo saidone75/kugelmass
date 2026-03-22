@@ -41,8 +41,6 @@
 (defn- create-string [property-name prefix]
   (gs/format
    "String.format(FORMAT_STRING, %s, %s)"
-   "%s"
-   "%s"
    (str (fix-name (s/replace property-name #":.*$" "")) (:prefix-suffix @state))
    (gs/format "%s%s%s" (prefix @state) (fix-name property-name) (:localname-suffix @state))))
 
@@ -64,7 +62,7 @@
   (reset! src
           (conj
            (map str (concat
-                     (list (if (:string-or-qname @state) (gs/format "%s String FORMAT_STRING = \"%%s:%%s\";" (:modifiers @state))))
+                     (if (:string-or-qname @state) (list (gs/format "%s String FORMAT_STRING = \"%%s:%%s\";" (:modifiers @state))))
                      (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
                      (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
                      (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
