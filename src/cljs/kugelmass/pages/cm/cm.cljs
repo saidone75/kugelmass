@@ -40,7 +40,7 @@
 
 (defn- create-string [property-name prefix]
   (gs/format
-   "String.format(\"%s:%s\", %s, %s)"
+   "String.format(FORMAT_STRING, %s, %s)"
    "%s"
    "%s"
    (str (fix-name (s/replace property-name #":.*$" "")) (:prefix-suffix @state))
@@ -63,11 +63,13 @@
 (defn- gen-src [xml-data]
   (reset! src
           (conj
-           (map str (concat (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
-                            (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
-                            (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
-                            (mapcat #(get-entity-def % :assoc-prefix) (mapcat #(get-entities % :associations) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))
-                            (mapcat #(get-entity-def % :prop-prefix) (mapcat #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))
+           (map str (concat
+                     (list (if (:string-or-qname @state) (gs/format "%s String FORMAT_STRING = \"%%s:%%s\";" (:modifiers @state))))
+                     (mapcat #(get-ns-def %) (get-entities xml-data :namespaces))
+                     (mapcat #(get-entity-def % :type-prefix) (get-entities xml-data :types))
+                     (mapcat #(get-entity-def % :asp-prefix) (get-entities xml-data :aspects))
+                     (mapcat #(get-entity-def % :assoc-prefix) (mapcat #(get-entities % :associations) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))
+                     (mapcat #(get-entity-def % :prop-prefix) (mapcat #(get-entities % :properties) (concat (get-entities xml-data :aspects) (get-entities xml-data :types))))))
            nil
            header)))
 
