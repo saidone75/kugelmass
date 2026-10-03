@@ -16,3 +16,4 @@ pom.xml.asc
 /dev-target
 *~
 .dir-locals.el
+/.idea/
