@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="Leiningen: mx.cider/logjam:0.3.0">
-    <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/mx/cider/logjam/0.3.0/logjam-0.3.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
