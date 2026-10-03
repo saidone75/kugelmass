@@ -73,7 +73,8 @@
                            :output-to "resources/public/js/compiled/kugelmass.js"
                            :output-dir "target"
                            :source-map-timestamp true
-                           :optimizations :advanced
+                            :optimizations :advanced
+                            :externs ["resources/externs/react-dom.js"]
                            :closure-defines {goog.DEBUG false}
                            :pretty-print false}}]}
 
