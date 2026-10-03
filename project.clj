@@ -1,12 +1,12 @@
-(defproject kugelmass "0.3.20"
+(defproject kugelmass "0.3.21"
   :description "Source code for my web page saidone.org"
   :url "http://saidone.org"
   :license {:name "MIT"
             :url "https://github.com/saidone75/kugelmass/blob/master/LICENSE"}
 
-  :dependencies [[org.clojure/clojure "1.12.4"]
-                 [org.clojure/clojurescript "1.12.134" :scope "provided"]
-                 [com.cognitect/transit-clj "1.0.333"]
+  :dependencies [[org.clojure/clojure "1.12.6"]
+                 [org.clojure/clojurescript "1.12.145" :scope "provided"]
+                 [com.cognitect/transit-clj "1.1.363"]
                  [ring "1.10.0"]
                  [ring/ring-defaults "0.3.4"]
                  [bk/ring-gzip "0.3.0"]
