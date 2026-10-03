@@ -11,7 +11,7 @@
             [goog.history.EventType :as EventType])
   (:import goog.History))
 
-(defn version [] "0.3.20")
+(defn version [] "0.3.21")
 
 (enable-console-print!)
 
@@ -25,7 +25,8 @@
    [:div.tagline (:tagline @app-state)]])
 
 (defn- content []
-  [:div.content {:id "content"} (:content @page-state)])
+  (let [page @page-state]
+    [:div.content {:id "content"} (when page (:content @page))]))
 
 (defn- footer []
   [:div.footer
@@ -49,8 +50,7 @@
   (rdom/render [site] (js/document.getElementById "app")))
 
 (defn- load-page [page]
-  (set! page-state (pages/get-page page))
-  (render))
+  (reset! page-state (pages/get-page page)))
 
 (secretary/set-config! :prefix "#")
 
