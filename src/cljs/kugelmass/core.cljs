@@ -2,7 +2,7 @@
 
 (ns kugelmass.core
   (:require [reagent.core :as r]
-            [reagent.dom :as rdom]
+            [reagent.dom.client :as rdom]
             [kugelmass.taglines :as taglines]
             [kugelmass.quotes :as quotes]
             [kugelmass.pages :as pages]
@@ -18,6 +18,8 @@
 (defonce app-state (r/atom {}))
 
 (defonce page-state (r/atom nil))
+
+(defonce root (atom nil))
 
 (defn- header []
   [:div.header
@@ -46,8 +48,10 @@
     [content]]
    [footer]])
 
-(defn- render []
-  (rdom/render [site] (js/document.getElementById "app")))
+(defn render []
+  (when-not @root
+    (reset! root (rdom/create-root (js/document.getElementById "app"))))
+  (rdom/render @root [site]))
 
 (defn- load-page [page]
   (reset! page-state (pages/get-page page)))
