@@ -11,7 +11,7 @@
             [goog.history.EventType :as EventType])
   (:import goog.History))
 
-(defn version [] "0.3.21")
+(defn version [] "0.3.22")
 
 (enable-console-print!)
 

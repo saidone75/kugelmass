@@ -29,6 +29,7 @@
     [:li [:a {:href "https://www.alfresco.com"} "Alfresco"]]]
    [:h1 "Certifications"]
    [:ul
+    [:li "Hyland Certified Content Innovation Cloud Developer Specialist 2026 (2026)"]
     [:li "Hyland Certified Content Innovation Cloud Administrator Professional (2025)"]
     [:li "Alfresco Content Services Certified Engineer (2023)"]
     [:li "Alfresco Certified Engineer (2012)"]]
