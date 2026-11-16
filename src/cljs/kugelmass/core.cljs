@@ -76,15 +76,22 @@
 (secretary/defroute "/pwd" []
   (load-page :pwd))
 
-(let [h (History.)]
-  (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
-  (doto h (.setEnabled true)))
+(defonce history
+  (let [h (History.)]
+    (events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
+    (doto h (.setEnabled true))))
 
 (swap! app-state assoc :tagline (taglines/get-tagline))
 (swap! app-state assoc :quote (quotes/get-quote))
 
-(js/setInterval #(swap! app-state assoc :tagline (taglines/get-tagline)) (+ 10000 (rand-int 5000)))
-(js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 20000 (rand-int 5000)))
+(defonce tagline-timer
+  (js/setInterval #(swap! app-state assoc :tagline (taglines/get-tagline)) (+ 10000 (rand-int 5000))))
+(defonce quote-timer
+  (js/setInterval #(swap! app-state assoc :quote (quotes/get-quote)) (+ 20000 (rand-int 5000))))
+
+(defn reload []
+  (secretary/dispatch! (.getToken history))
+  (render))
 
 (aset js/window "version" kugelmass.core/version)
 (aset js/window "quote" kugelmass.quotes/get-quote)

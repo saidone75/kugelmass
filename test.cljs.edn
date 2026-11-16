@@ -1,0 +1,4 @@
+^{:watch-dirs ["src/cljs" "src/cljc" "test/cljs" "test/cljc"]
+  :ring-server-options {:port 9501}}
+{:output-to "dev-target/public/js/test/main.js"
+ :output-dir "dev-target/public/js/test/out"}
