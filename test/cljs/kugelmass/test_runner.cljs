@@ -1,12 +1,7 @@
-;; Copyright (c) 2020-2022 Saidone
-
 (ns kugelmass.test-runner
-  (:require
-   [doo.runner :refer-macros [doo-tests]]
-   [kugelmass.core-test]
-   [kugelmass.common-test]))
+  (:require [figwheel.main.testing :refer-macros [run-tests-async]]
+            [kugelmass.core-test]
+            [kugelmass.common-test]))
 
-(enable-console-print!)
-
-(doo-tests 'kugelmass.core-test
-           'kugelmass.common-test)
+(defn -main [& _]
+  (run-tests-async 10000))

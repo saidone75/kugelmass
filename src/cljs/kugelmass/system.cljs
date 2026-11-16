@@ -1,28 +1,10 @@
 ;; Copyright (c) 2020-2026 Saidone
 
-(ns kugelmass.system
-  (:require [com.stuartsierra.component :as component]
-            [kugelmass.components.ui :refer [new-ui-component]]))
-
-(declare system)
-
-(defn new-system []
-  (component/system-map
-   :app-root (new-ui-component)))
-
-(defn init []
-  (set! system (new-system)))
-
-(defn start []
-  (set! system (component/start system)))
-
-(defn stop []
-  (set! system (component/stop system)))
+(ns ^:figwheel-hooks kugelmass.system
+  (:require [kugelmass.core :as core]))
 
 (defn ^:export go []
-  (init)
-  (start))
+  (core/render))
 
-(defn reset []
-  (stop)
-  (go))
+(defn ^:after-load reset []
+  (core/reload))

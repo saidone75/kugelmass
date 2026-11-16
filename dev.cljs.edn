@@ -1,0 +1,8 @@
+^{:watch-dirs ["src/cljs" "src/cljc"]
+  :css-dirs ["resources/public/css"]
+  :ring-server-options {:port 9500}
+  :open-url false}
+{:main kugelmass.system
+ :asset-path "/js/compiled/out"
+ :output-to "dev-target/public/js/compiled/kugelmass.js"
+ :output-dir "dev-target/public/js/compiled/out"}

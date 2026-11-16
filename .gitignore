@@ -1,0 +1,8 @@
+/target/
+/dev-target/
+/.cpcache/
+/.clj-kondo/.cache/
+/log/
+/.nrepl-port
+/.idea/
+/*.iml

@@ -1,0 +1,7 @@
+{:main kugelmass.system
+ :output-to "target/frontend/public/js/compiled/kugelmass.js"
+ :output-dir "target/cljs-release"
+ :optimizations :advanced
+ :externs ["resources/externs/react-dom.js"]
+ :closure-defines {goog.DEBUG false}
+ :pretty-print false}

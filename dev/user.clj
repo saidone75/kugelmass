@@ -1,42 +1,39 @@
 (ns user
-  (:require [kugelmass.application]
+  (:require [clojure.java.io :as io]
             [com.stuartsierra.component :as component]
-            [figwheel-sidecar.config :as fw-config]
-            [figwheel-sidecar.system :as fw-sys]
-            [reloaded.repl :refer [system init]]
-            [ring.middleware.reload :refer [wrap-reload]]
+            [figwheel.main.api :as figwheel]
             [ring.middleware.file :refer [wrap-file]]
-            [system.components.middleware :refer [new-middleware]]
-            [figwheel-sidecar.repl-api :as figwheel]
+            [ring.middleware.reload :refer [wrap-reload]]
+            [kugelmass.application :as application]
             [kugelmass.config :refer [config]]))
 
-(defn dev-system []
-  (let [config (config)]
-    (assoc (kugelmass.application/app-system config)
-           :middleware (new-middleware
-                        {:middleware (into [[wrap-file "dev-target/public"]]
-                                           (:middleware config))})
-           :figwheel-system (fw-sys/figwheel-system (fw-config/fetch-config))
-           :css-watcher (fw-sys/css-watcher {:watch-paths ["resources/public/css"]}))))
+(defonce system (atom nil))
 
-(reloaded.repl/set-init! #(dev-system))
+(defn start []
+  (when-not @system
+    (.mkdirs (io/file "dev-target/public"))
+    (let [config (update (config) :middleware
+                         #(into [[wrap-file "dev-target/public"] wrap-reload] %))]
+      (reset! system (component/start (application/app-system config)))))
+  @system)
 
-(defn cljs-repl []
-  (fw-sys/cljs-repl (:figwheel-system system)))
+(defn stop []
+  (figwheel/stop-all)
+  (when @system
+    (component/stop @system)
+    (reset! system nil)))
 
-;; Set up aliases so they don't accidentally
-;; get scrubbed from the namespace declaration
-(def start reloaded.repl/start)
-(def stop reloaded.repl/stop)
-(def go reloaded.repl/go)
-(def reset reloaded.repl/reset)
-(def reset-all reloaded.repl/reset-all)
+(defn go []
+  (start)
+  (try
+    (figwheel/start {:mode :serve} "dev")
+    (catch Throwable e
+      (stop)
+      (throw e))))
 
-;; deprecated, to be removed in Chestnut 1.0
-(defn run []
-  (println "(run) is deprecated, use (go)")
+(defn reset []
+  (stop)
   (go))
 
-(defn browser-repl []
-  (println "(browser-repl) is deprecated, use (cljs-repl)")
-  (cljs-repl))
+(defn cljs-repl []
+  (figwheel/cljs-repl "dev"))
