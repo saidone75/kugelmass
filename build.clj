@@ -9,7 +9,7 @@
   (doseq [path ["target" "dev-target"]]
     (b/delete {:path path})))
 
-(defn frontend "Compile optimized ClojureScript without Node.js." [_]
+(defn frontend "Compile optimized ClojureScript." [_]
   (let [result (b/java-command
                 {:basis (b/create-basis {:project "deps.edn" :aliases [:cljs]})
                  :java-opts ["-Xmx1g"]
